@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoLang on wshoo的博客</title>
+    <link>wshoo.github.io/categories/golang/</link>
+    <description>Recent content in GoLang on wshoo的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 16 Oct 2019 18:34:38 +0800</lastBuildDate>
+    
+	<atom:link href="wshoo.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>First</title>
+      <link>wshoo.github.io/post/first/</link>
+      <pubDate>Wed, 16 Oct 2019 18:34:38 +0800</pubDate>
+      
+      <guid>wshoo.github.io/post/first/</guid>
+      <description>手动阀手动阀 士大夫 手动阀 sdfadfasdf a</description>
+    </item>
+    
+  </channel>
+</rss>
