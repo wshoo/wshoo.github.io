@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>wshoo的博客</title>
-    <link>wshoo.github.io/</link>
+    <link>https://wshoo.github.io/</link>
     <description>Recent content on wshoo的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Wed, 16 Oct 2019 18:34:38 +0800</lastBuildDate>
     
-	<atom:link href="wshoo.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wshoo.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>First</title>
-      <link>wshoo.github.io/post/first/</link>
+      <title>一行白鹭上青天</title>
+      <link>https://wshoo.github.io/post/first/</link>
       <pubDate>Wed, 16 Oct 2019 18:34:38 +0800</pubDate>
       
-      <guid>wshoo.github.io/post/first/</guid>
-      <description>手动阀手动阀 士大夫 手动阀 sdfadfasdf a</description>
+      <guid>https://wshoo.github.io/post/first/</guid>
+      <description>二月春风似剪刀</description>
     </item>
     
     <item>
       <title>归档</title>
-      <link>wshoo.github.io/archives/</link>
+      <link>https://wshoo.github.io/archives/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>wshoo.github.io/archives/</guid>
+      <guid>https://wshoo.github.io/archives/</guid>
       <description></description>
     </item>
     

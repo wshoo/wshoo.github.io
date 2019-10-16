@@ -3,52 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>wshoo.github.io/categories/</loc>
+    <loc>https://wshoo.github.io/categories/</loc>
     <lastmod>2019-10-16T18:34:38+08:00</lastmod>
   </url>
   
   <url>
-    <loc>wshoo.github.io/tags/development/</loc>
+    <loc>https://wshoo.github.io/post/</loc>
     <lastmod>2019-10-16T18:34:38+08:00</lastmod>
   </url>
   
   <url>
-    <loc>wshoo.github.io/categories/development/</loc>
+    <loc>https://wshoo.github.io/tags/</loc>
     <lastmod>2019-10-16T18:34:38+08:00</lastmod>
   </url>
   
   <url>
-    <loc>wshoo.github.io/post/first/</loc>
+    <loc>https://wshoo.github.io/categories/word/</loc>
     <lastmod>2019-10-16T18:34:38+08:00</lastmod>
   </url>
   
   <url>
-    <loc>wshoo.github.io/categories/golang/</loc>
+    <loc>https://wshoo.github.io/tags/word/</loc>
     <lastmod>2019-10-16T18:34:38+08:00</lastmod>
   </url>
   
   <url>
-    <loc>wshoo.github.io/tags/golang/</loc>
+    <loc>https://wshoo.github.io/</loc>
     <lastmod>2019-10-16T18:34:38+08:00</lastmod>
   </url>
   
   <url>
-    <loc>wshoo.github.io/post/</loc>
+    <loc>https://wshoo.github.io/post/first/</loc>
     <lastmod>2019-10-16T18:34:38+08:00</lastmod>
   </url>
   
   <url>
-    <loc>wshoo.github.io/tags/</loc>
-    <lastmod>2019-10-16T18:34:38+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>wshoo.github.io/</loc>
-    <lastmod>2019-10-16T18:34:38+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>wshoo.github.io/archives/</loc>
+    <loc>https://wshoo.github.io/archives/</loc>
   </url>
   
 </urlset>
