@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>scrapy | wshoo的博客</title>
+    <meta property="og:title" content="scrapy - wshoo的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="python,数据分析,博客,电影,vlog">
+    <meta name="description" content="scrapy">
+        
+    <meta name="author" content="wshoo">
+    <meta property="og:url" content="https://wshoo.github.io/tags/scrapy/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/rss+xml+xml" href="https://wshoo.github.io/tags/scrapy/index.xml" title="wshoo的博客" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://wshoo.github.io/">
+                        wshoo的博客
+                    </a>
+                
+                <p class="description">爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://wshoo.github.io/">首页</a>
+                    
+                    <a  href="https://wshoo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://wshoo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    
+                    <h3 class="archive-title">
+                        包含标签
+                        <span class="keyword">scrapy</span>
+                        的文章
+                    </h3>
+                    
+
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/linkextractor/">scrapy 中的 LinkExtractor</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2018年11月18日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                LinkExtractor 作用 提取链接
+用法实例 from scrapy.linkextractors import LinkExtractor def parse(self, response): le = LinkExtractor(resttrict_xpath='//ul') links = le.extract_links(response) if links: next_url = link[0].url yiled scrapy.Request(next_url, callback=self.parse)  LinkExtractor参数  allow 接收一个正则表达式或正则式列表 deny 与allow相反
+pattern = '/intro/.+\.html$' le = LinkExtractor(allow=pattern)  allow_domains 接收一个域名或一个域名列表
+ deny_domains 与allow_domains相反
+domains = ['github.com', 'google.com'] le = LinkExtractor(allow_domains=domains)  restrict_xpaths 接收一个XPath表达式或一个XPath表达式列表
+ restrict_css 接收一个CSS选择器或一个CSS选择器列表
+le = LinkExtractor(restrict_xpaths='//div[@id=&quot;top&quot;]')  tags 接收一个标签（字符串）或一个标签列表
+ attrs 接收一个属性（字符串）或一个属性列表
+le = LinkExtractor(tags='img', attrs='src')  process_value 接收一个形如func(value)的回调函数。如果传递了该参数，LinkExtractor将调用该回调函数对提取的每一个链接（如a的href）进行处理， 回调函数正常情况下应返回一个字符串（处理结果），想要抛弃所处理的链接时，返回None。……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/linkextractor/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/scrapy_proxy/">scrapy--proxy代理</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/scrapy">scrapy</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                scrapy&ndash;proxy代理的设置 在构造的请求中添加meta属性： 示例：
+def start_requests(self): yield scrapy.FormRequest(url=self.start_urls[0], headers=self.header, formdata=self.data, callback=self.parse_page, meta={'proxy':'http://1.2.3.4:11'}, )  显然在有多个spider时这种方法不够灵活
+以中间件的形式添加 在middlewares.py中添加：
+import random, base64 class ProxyMiddleware(object): proxyList = ['36.250.69.4:80', '58.18.52.168:3128', '58.253.238.243:80', '60.191.164.22:3128', '60.191.167.93:3128'] def process_request(self, request, spider): # Set the location of the proxy pro_adr = random.choice(self.proxyList) print(&quot;USE PROXY -&gt; &quot;+pro_adr) request.meta['proxy'] = &quot;http://&quot;+ pro_adr '''这里用的免费代理,不用用户名密码的.如果有用户名和密码,还要加入以下代码 proxy_user_pass = &quot;USERNAME:PASSWORD&quot; encoded_user_pass = base64.encodestring(proxy_user_pass) request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass'''  settings.py:
+DOWNLOADER_MIDDLEWARES = { #项目名称改成自己的 'pro_name.……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_proxy/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/scrapy_workflow/">scrapy--proxy代理</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/scrapy">scrapy</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                 scrapy工作流程  Spiders(爬虫):它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器) Engine(引擎)：负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。 Scheduler(调度器)：它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。 Downloader(下载器)：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理 ItemPipeline(管道):它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方. Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。 Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）  ……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_workflow/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/scrapy_login/">scrapy--模拟登陆</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/scrapy">scrapy</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                scrapy&ndash;模拟登陆 cookie  HTTP是无状态的协议，为了保持连接状态，引入cookie机制。 cookie 是http消息头的一种属性， 包括： - cookie名字（name）cookie的值（value） - cookie的过期时间（Expires/Max-Age） - cookie作用路径（Path） - cookie所在的域名（Domian）,使用cookie进行安全连接（Secure） - cookie大小Size 其中前两个为必须条件
+ 表单 使用的Chrome自带的开发者工具中的Network功能，在登录界面输入错误的信息，得到Form Data，下面为知乎的登录信息:
+_xsrf: fawfasdfgasdfgadsf email: 11@22.com password: 1123123 rememberme: y  其中_xsrf是一种验证机制，可以从登录界面的源代码中找到。
+scrapy模拟登陆 示例：
+def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot;, callback = self.post_login)] #重写了爬虫类的方法, 实现了自定义请求, 运行成功后会调用callback回调函数 #FormRequeset def post_login(self, response): print 'Preparing login' #下面这句话用于抓取请求网页后返回网页中的_xsrf字段的文字, 用于成功提交表单 xsrf = Selector(response).xpath('//input[@name=&quot;_xsrf&quot;]/@value').extract()[0] print xsrf #FormRequeset.from_response是Scrapy提供的一个函数, 用于post表单 #登陆成功后, 会调用after_login回调函数 return [FormRequest.from_response(response, formdata = { '_xsrf': xsrf, 'email': '123456', 'password': '123456' }, callback = self.……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_login/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+
+                    
+
+
+
+
+
+                </div>
+            </div>
+
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wshoo.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%B0%86%E8%BF%9B%E9%85%92/" title="将进酒">将进酒</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/" title="声声慢">声声慢</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块">Multiprocessing 模块</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例">python 数据库实例</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/scrapy/">scrapy(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/tool/">tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/%E8%AF%97%E6%AD%8C/">诗歌(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wshoo.github.io/tags/git/">git</a>
+    
+    <a href="https://wshoo.github.io/tags/markdown/">markdown</a>
+    
+    <a href="https://wshoo.github.io/tags/mysql/">mysql</a>
+    
+    <a href="https://wshoo.github.io/tags/python/">python</a>
+    
+    <a href="https://wshoo.github.io/tags/scrapy/">scrapy</a>
+    
+    <a href="https://wshoo.github.io/tags/%E8%AF%97%E6%AD%8C/">诗歌</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wshoo.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://wshoo.github.io/">wshoo的博客 By wshoo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+
+</body>
+</html>

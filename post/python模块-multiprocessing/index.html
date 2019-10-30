@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Multiprocessing 模块 | wshoo的博客</title>
+    <meta property="og:title" content="Multiprocessing 模块 - wshoo的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="python,数据分析,博客,电影,vlog">
+    <meta name="description" content="Multiprocessing 模块">
+        
+    <meta name="author" content="wshoo">
+    <meta property="og:url" content="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://wshoo.github.io/">
+                        wshoo的博客
+                    </a>
+                
+                <p class="description">爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://wshoo.github.io/">首页</a>
+                    
+                    <a  href="https://wshoo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://wshoo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Multiprocessing 模块</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            1年1月1日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
+                            
+                        </div>
+                        
+                        
+                        
+                        <div class="post-content">
+                            
+
+<blockquote>
+<p>众所周知，Python中的GIL限制了Python多线程并行对多核CPU的利用，但是我们仍然可以通过各种其他的方式来让Python真正利用多核资源, 例如通过C/C++扩展来实现多线程/多进程, 以及直接利用Python的多进程模块multiprocessing来进行多进程编程。</p>
+</blockquote>
+
+<h2 id="多进程-multiprocessing-模块">多进程 Multiprocessing 模块</h2>
+
+<h3 id="process-类">Process 类</h3>
+
+<p>Process 类用来描述一个进程对象。创建子进程的时候，只需要传入一个执行函数和函数的参数即可完成 Process 示例的创建。</p>
+
+<pre><code>multiprocessing.Process(group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None)
+	# target -- 函数名
+	# args -- tuple形式参数
+</code></pre>
+
+<ul>
+<li>star() 启动进程</li>
+<li>join() 进程同步，等待所有进程退出</li>
+<li>close() 阻止多余的进程涌入进程池pool造成进程阻塞</li>
+</ul>
+
+<p>eg.</p>
+
+<pre><code>import multiprocessing
+import os
+
+def run_proc(name):
+    print('Child process {0} PID:{1}'.format(name, os.getpid())) # os.getpid() 获取当前进程pid
+
+if __name__ == '__main__':
+    print('Parent process {0} is Running'.format(os.getpid()))
+
+    for i in range(5):
+        p = multiprocessing.Process(target=run_proc, args=(str(i),))
+        print('process start')
+        p.start()
+    p.join()
+    print('Process close')
+
+</code></pre>
+
+<p>result.</p>
+
+<pre><code>Parent process 9980 is Running
+process start
+process start
+process start
+process start
+process start
+Child process 0 PID:5344
+Child process 1 PID:8500
+Child process 2 PID:5752
+Child process 3 PID:10064
+Child process 4 PID:9860
+Process close
+</code></pre>
+
+<h3 id="pool">Pool</h3>
+
+<p>Pool 可以提供指定数量的进程供用户使用，默认是 CPU 核数。当有新的请求提交到 Poll 的时候，如果池子没有满，会创建一个进程来执行，否则就会让该请求等待。
+- Pool 对象调用 join 方法会等待所有的子进程执行完毕
+- 调用 join 方法之前，必须调用 close
+- 调用 close 之后就不能继续添加新的 Process 了</p>
+
+<h4 id="pool-apply-async">pool.apply_async</h4>
+
+<p>apply_async 方法用来同步执行进程，允许多个进程同时进入池子。
+eg.</p>
+
+<pre><code>import multiprocessing
+import os
+import time
+
+def run_task(name):
+    print('Task {0} pid {1} is running, parent id is {2}'.format(name, os.getpid(), os.getppid())) # os.getppid()-当前进程的父进程
+    time.sleep(1)
+    print('Task {0} end.'.format(name))
+
+if __name__ == '__main__':
+    print('current process {0}'.format(os.getpid()))
+    p = multiprocessing.Pool(processes=3)
+    for i in range(6):
+        p.apply_async(run_task, args=(i,))
+    print('Waiting for all subprocesses done...')
+    p.close()
+    p.join()
+    print('All processes done!')
+</code></pre>
+
+<p>result.</p>
+
+<pre><code>current process 9704
+Waiting for all subprocesses done...
+Task 0 pid 9424 is running, parent id is 9704
+Task 1 pid 5580 is running, parent id is 9704
+Task 2 pid 8460 is running, parent id is 9704
+Task 0 end.
+Task 1 end.
+Task 3 pid 9424 is running, parent id is 9704
+Task 4 pid 5580 is running, parent id is 9704
+Task 2 end.
+Task 5 pid 8460 is running, parent id is 9704
+Task 3 end.
+Task 4 end.
+Task 5 end.
+All processes done!
+</code></pre>
+
+<h4 id="pool-apply">pool.apply</h4>
+
+<pre><code>apply(func[, args[, kwds]])
+</code></pre>
+
+<p>该方法只能允许一个进程进入池子，在一个进程结束之后，另外一个进程才可以进入池子。
+eg.</p>
+
+<pre><code>import multiprocessing
+import os
+import time
+
+def run_task(name):
+    print('Task {0} pid {1} is running, parent id is {2}'.format(name, os.getpid(), os.getppid()))
+    time.sleep(1)
+    print('Task {0} end.'.format(name))
+
+if __name__ == '__main__':
+    print('current process {0}'.format(os.getpid()))
+    p = multiprocessing.Pool(processes=3)
+    for i in range(6):
+        p.apply(run_task, args=(i,))
+    print('Waiting for all subprocesses done...')
+    p.close()
+    p.join()
+    print('All processes done!')
+</code></pre>
+
+<p>result.</p>
+
+<pre><code>Task 0 pid 928 is running, parent id is 927
+Task 0 end.
+Task 1 pid 929 is running, parent id is 927
+Task 1 end.
+Task 2 pid 930 is running, parent id is 927
+Task 2 end.
+Task 3 pid 928 is running, parent id is 927
+Task 3 end.
+Task 4 pid 929 is running, parent id is 927
+Task 4 end.
+Task 5 pid 930 is running, parent id is 927
+Task 5 end.
+Waiting for all subprocesses done...
+All processes done!
+</code></pre>
+
+<h3 id="queue-进程间通信">Queue 进程间通信</h3>
+
+<p>Queue 用来在多个进程间通信。
+- put(blocked, timeout) 插入数据到队列中.该方法会阻塞 timeout 指定的时间，直到该队列有剩余空间。如果超时，抛出 Queue.Full 异常。blocked = Flase，立即抛出异常
+- get(blocked, timeout) 从队列中读取并删除一个元素.等待时间内，没有取到任何元素，会抛出 Queue.Empty 异常。blocked = Ture Queue 有一个值可用，立刻返回改值；Queue 没有任何元素，</p>
+
+<pre><code>from multiprocessing import Process, Queue
+import os, time, random
+# 写数据进程执行的代码:
+def proc_write(q,urls):
+    print('Process(%s) is writing...' % os.getpid())
+    for url in urls:
+        q.put(url)
+        print('Put %s to queue...' % url)
+        time.sleep(random.random())
+# 读数据进程执行的代码:
+def proc_read(q):
+    print('Process(%s) is reading...' % os.getpid())
+    while True:
+        url = q.get(True)
+        print('Get %s from queue.' % url)
+if __name__=='__main__':
+    # 父进程创建Queue，并传给各个子进程：
+    q = Queue()
+    proc_writer1 = Process(target=proc_write, args=(q,['url_1', 'url_2', 'url_3']))
+    proc_writer2 = Process(target=proc_write, args=(q,['url_4','url_5','url_6']))
+    proc_reader = Process(target=proc_read, args=(q,))
+    # 启动子进程proc_writer，写入:
+    proc_writer1.start()
+    proc_writer2.start()
+    # 启动子进程proc_reader，读取:
+    proc_reader.start()
+    # 等待proc_writer结束:
+    proc_writer1.join()
+    proc_writer2.join()
+    # proc_reader进程里是死循环，无法等待其结束，只能强行终止:
+    proc_reader.terminate()
+</code></pre>
+
+<p>result.</p>
+
+<pre><code>Process(1083) is writing...
+Put url_1 to queue...
+Process(1084) is writing...
+Put url_4 to queue...
+Process(1085) is reading...
+Get url_1 from queue.
+Get url_4 from queue.
+Put url_5 to queue...
+Get url_5 from queue.
+Put url_2 to queue...
+Get url_2 from queue.
+Put url_6 to queue...
+Get url_6 from queue.
+Put url_3 to queue...
+Get url_3 from queue.
+</code></pre>
+
+<h3 id="pipe-进程间通信">Pipe 进程间通信</h3>
+
+<pre><code>multiprocessing.Pipe([duplex])
+</code></pre>
+
+<p>常用来在两个进程间通信，两个进程分别位于管道的两端。
+eg.1</p>
+
+<pre><code>from multiprocessing import Process, Pipe
+
+def send(pipe):
+    pipe.send(['spam'] + [42, 'egg'])   # send 传输一个列表
+    pipe.close()
+
+if __name__ == '__main__':
+    (con1, con2) = Pipe()                            # 创建两个 Pipe 实例
+    sender = Process(target=send, args=(con1, ))     # 函数的参数，args 一定是实例化之后的 Pip 变量，不能直接写 args=(Pip(),)
+    sender.start()                                   # Process 类启动进程
+    print(&quot;con2 got: %s&quot; % con2.recv())              # 管道的另一端 con2 从send收到消息
+    con2.close()                                     # 关闭管道
+</code></pre>
+
+<p>eg.2</p>
+
+<pre><code>from multiprocessing import Process, Pipe
+
+def talk(pipe):
+    pipe.send(dict(name='Bob', spam=42))            # 传输一个字典
+    reply = pipe.recv()                             # 接收传输的数据
+    print('talker got:', reply)
+
+if __name__ == '__main__':
+    (parentEnd, childEnd) = Pipe()                  # 创建两个 Pipe() 实例，也可以改成 conf1， conf2
+    child = Process(target=talk, args=(childEnd,))  # 创建一个 Process 进程，名称为 child
+    child.start()                                   # 启动进程
+    print('parent got:', parentEnd.recv())          # parentEnd 是一个 Pip() 管道，可以接收 child Process 进程传输的数据
+    parentEnd.send({x * 2 for x in 'spam'})         # parentEnd 是一个 Pip() 管道，可以使用 send 方法来传输数据
+    child.join()                                    # 传输的数据被 talk 函数内的 pip 管道接收，并赋值给 reply
+    print('parent exit')
+</code></pre>
+
+<p>result.</p>
+
+<pre><code>parent got: {'name': 'Bob', 'spam': 42}
+talker got: {'ss', 'aa', 'pp', 'mm'}
+parent exit
+</code></pre>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://wshoo.github.io/">wshoo</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">super()和__init__()</a></li>
+        
+        <li><a href="/post/xlwings/">xlwings 模块</a></li>
+        
+        <li><a href="/post/%E5%B0%86%E8%BF%9B%E9%85%92/">将进酒</a></li>
+        
+        <li><a href="/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/">声声慢</a></li>
+        
+        <li><a href="/about/">关于我</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://wshoo.github.io/tags/python">python</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wshoo.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%B0%86%E8%BF%9B%E9%85%92/" title="将进酒">将进酒</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/" title="声声慢">声声慢</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块">Multiprocessing 模块</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例">python 数据库实例</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/scrapy/">scrapy(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/tool/">tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/%E8%AF%97%E6%AD%8C/">诗歌(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wshoo.github.io/tags/git/">git</a>
+    
+    <a href="https://wshoo.github.io/tags/markdown/">markdown</a>
+    
+    <a href="https://wshoo.github.io/tags/mysql/">mysql</a>
+    
+    <a href="https://wshoo.github.io/tags/python/">python</a>
+    
+    <a href="https://wshoo.github.io/tags/scrapy/">scrapy</a>
+    
+    <a href="https://wshoo.github.io/tags/%E8%AF%97%E6%AD%8C/">诗歌</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wshoo.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://wshoo.github.io/">wshoo的博客 By wshoo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
+</html>

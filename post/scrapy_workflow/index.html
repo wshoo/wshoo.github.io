@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>scrapy--proxy代理 | wshoo的博客</title>
+    <meta property="og:title" content="scrapy--proxy代理 - wshoo的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="python,数据分析,博客,电影,vlog">
+    <meta name="description" content="scrapy--proxy代理">
+        
+    <meta name="author" content="wshoo">
+    <meta property="og:url" content="https://wshoo.github.io/post/scrapy_workflow/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://wshoo.github.io/">
+                        wshoo的博客
+                    </a>
+                
+                <p class="description">爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://wshoo.github.io/">首页</a>
+                    
+                    <a  href="https://wshoo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://wshoo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">scrapy--proxy代理</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            1年1月1日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/scrapy">scrapy</a></span>
+                            
+                        </div>
+                        
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h1 id="scrapy工作流程">scrapy工作流程</h1>
+
+<p><img src="https://res.cloudinary.com/db40btt7h/image/upload/v1542943480/blog/20180711140823525.png" alt="scrapy" /></p>
+
+<ul>
+<li>Spiders(爬虫):它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器)</li>
+<li>Engine(引擎)：负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。</li>
+<li>Scheduler(调度器)：它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。</li>
+<li>Downloader(下载器)：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理</li>
+<li>ItemPipeline(管道):它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方.</li>
+<li>Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。</li>
+<li>Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）</li>
+</ul>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://wshoo.github.io/">wshoo</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://wshoo.github.io/post/scrapy_workflow/">https://wshoo.github.io/post/scrapy_workflow/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/linkextractor/">scrapy 中的 LinkExtractor</a></li>
+        
+        <li><a href="/post/scrapy_proxy/">scrapy--proxy代理</a></li>
+        
+        <li><a href="/post/scrapy_login/">scrapy--模拟登陆</a></li>
+        
+        <li><a href="/post/%E5%B0%86%E8%BF%9B%E9%85%92/">将进酒</a></li>
+        
+        <li><a href="/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/">声声慢</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://wshoo.github.io/tags/scrapy">scrapy</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wshoo.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%B0%86%E8%BF%9B%E9%85%92/" title="将进酒">将进酒</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/" title="声声慢">声声慢</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块">Multiprocessing 模块</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例">python 数据库实例</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/scrapy/">scrapy(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/tool/">tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/%E8%AF%97%E6%AD%8C/">诗歌(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wshoo.github.io/tags/git/">git</a>
+    
+    <a href="https://wshoo.github.io/tags/markdown/">markdown</a>
+    
+    <a href="https://wshoo.github.io/tags/mysql/">mysql</a>
+    
+    <a href="https://wshoo.github.io/tags/python/">python</a>
+    
+    <a href="https://wshoo.github.io/tags/scrapy/">scrapy</a>
+    
+    <a href="https://wshoo.github.io/tags/%E8%AF%97%E6%AD%8C/">诗歌</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wshoo.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://wshoo.github.io/">wshoo的博客 By wshoo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
+</html>

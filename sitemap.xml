@@ -48,6 +48,51 @@
   </url>
   
   <url>
+    <loc>https://wshoo.github.io/categories/python/</loc>
+    <lastmod>2018-11-18T06:18:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/tags/scrapy/</loc>
+    <lastmod>2018-11-18T06:18:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/post/linkextractor/</loc>
+    <lastmod>2018-11-18T06:18:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/categories/database/</loc>
+    <lastmod>2018-10-28T06:18:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/tags/mysql/</loc>
+    <lastmod>2018-10-28T06:18:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/post/mysql/</loc>
+    <lastmod>2018-10-28T06:18:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/tags/markdown/</loc>
+    <lastmod>2018-10-19T06:18:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/post/markdown/</loc>
+    <lastmod>2018-10-19T06:18:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/categories/tool/</loc>
+    <lastmod>2018-10-19T06:18:30+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wshoo.github.io/tags/git/</loc>
     <lastmod>2018-10-18T06:18:30+08:00</lastmod>
   </url>
@@ -58,8 +103,39 @@
   </url>
   
   <url>
-    <loc>https://wshoo.github.io/categories/tool/</loc>
-    <lastmod>2018-10-18T06:18:30+08:00</lastmod>
+    <loc>https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/</loc>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/tags/python/</loc>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/post/python-db/</loc>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/categories/scrapy/</loc>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/post/scrapy_proxy/</loc>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/post/scrapy_workflow/</loc>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/post/scrapy_login/</loc>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/</loc>
+  </url>
+  
+  <url>
+    <loc>https://wshoo.github.io/post/xlwings/</loc>
   </url>
   
   <url>

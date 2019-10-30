@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>python | wshoo的博客</title>
+    <meta property="og:title" content="python - wshoo的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="python,数据分析,博客,电影,vlog">
+    <meta name="description" content="python">
+        
+    <meta name="author" content="wshoo">
+    <meta property="og:url" content="https://wshoo.github.io/categories/python/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/rss+xml+xml" href="https://wshoo.github.io/categories/python/index.xml" title="wshoo的博客" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://wshoo.github.io/">
+                        wshoo的博客
+                    </a>
+                
+                <p class="description">爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://wshoo.github.io/">首页</a>
+                    
+                    <a  href="https://wshoo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://wshoo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    
+                    <h3 class="archive-title">
+                        分类
+                        <span class="keyword">python</span>
+                        中的文章
+                    </h3>
+                    
+
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/linkextractor/">scrapy 中的 LinkExtractor</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2018年11月18日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                LinkExtractor 作用 提取链接
+用法实例 from scrapy.linkextractors import LinkExtractor def parse(self, response): le = LinkExtractor(resttrict_xpath='//ul') links = le.extract_links(response) if links: next_url = link[0].url yiled scrapy.Request(next_url, callback=self.parse)  LinkExtractor参数  allow 接收一个正则表达式或正则式列表 deny 与allow相反
+pattern = '/intro/.+\.html$' le = LinkExtractor(allow=pattern)  allow_domains 接收一个域名或一个域名列表
+ deny_domains 与allow_domains相反
+domains = ['github.com', 'google.com'] le = LinkExtractor(allow_domains=domains)  restrict_xpaths 接收一个XPath表达式或一个XPath表达式列表
+ restrict_css 接收一个CSS选择器或一个CSS选择器列表
+le = LinkExtractor(restrict_xpaths='//div[@id=&quot;top&quot;]')  tags 接收一个标签（字符串）或一个标签列表
+ attrs 接收一个属性（字符串）或一个属性列表
+le = LinkExtractor(tags='img', attrs='src')  process_value 接收一个形如func(value)的回调函数。如果传递了该参数，LinkExtractor将调用该回调函数对提取的每一个链接（如a的href）进行处理， 回调函数正常情况下应返回一个字符串（处理结果），想要抛弃所处理的链接时，返回None。……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/linkextractor/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">Multiprocessing 模块</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                众所周知，Python中的GIL限制了Python多线程并行对多核CPU的利用，但是我们仍然可以通过各种其他的方式来让Python真正利用多核资源, 例如通过C/C++扩展来实现多线程/多进程, 以及直接利用Python的多进程模块multiprocessing来进行多进程编程。
+ 多进程 Multiprocessing 模块 Process 类 Process 类用来描述一个进程对象。创建子进程的时候，只需要传入一个执行函数和函数的参数即可完成 Process 示例的创建。
+multiprocessing.Process(group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None) # target -- 函数名 # args -- tuple形式参数   star() 启动进程 join() 进程同步，等待所有进程退出 close() 阻止多余的进程涌入进程池pool造成进程阻塞  eg.
+import multiprocessing import os def run_proc(name): print('Child process {0} PID:{1}'.format(name, os.getpid())) # os.getpid() 获取当前进程pid if __name__ == '__main__': print('Parent process {0} is Running'.format(os.getpid())) for i in range(5): p = multiprocessing.Process(target=run_proc, args=(str(i),)) print('process start') p.……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/python-db/">python 数据库实例</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                python 数据库交互 MySQL MySQL 的安装
+ sudo apt-get update sudo apt-get install -y mysql-server mysql-client  远程访问
+ sudo nano /etc/mysql/my.cnf 注释此行：bind-address = 127.0.0.1  启动、关闭和重启MySQL 服务的命令如下： - sudo service mysql start - sudo service mysql stop - sudo service mysql restart
+可视化工具 ：MySQL workbench
+import pymysql def my_db(host,user,passwd,db,sql,port=3306,charset='utf8'): coon = pymysql.connect(host=host, user=user, password=passwd, db=db, port=port, charset=charset, autocommit=True) cur = coon.cursor() #建立游标 sql=sql.strip() cur.execute(sql) #执行sql语句，但不会返回执行的结果 sql_start = sql[:6].lower()#取sql的开头,转成小写 if sql_start.……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/python-db/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">super()和__init__()</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                ##单继承时super()和init()实现的功能是类似的
+class Base(object): def __init__(self): print 'Base create' class childA(Base): def __init__(self): print 'creat A ', Base.__init__(self) class childB(Base): def __init__(self): print 'creat B ', super(childB, self).__init__() base = Base() a = childA() b = childB()  输出结果：
+Base create creat A Base create creat B Base create  区别是使用super()继承时不用显式引用基类。
+##super()只能用于新式类中
+把基类改为旧式类，即不继承任何基类
+class Base(): def __init__(self): print 'Base create'  执行时，在初始化b时就会报错：
+super(childB, self).__init__() TypeError: must be type, not classobj  ##super不是父类，而是继承顺序的下一个类 在多重继承时会涉及继承顺序，super（）相当于返回继承顺序的下一个类，而不是父类，类似于这样的功能：……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/xlwings/">xlwings 模块</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                打开已保存的Excel文档 # 导入xlwings模块，打开Excel程序，默认设置：程序可见，只打开不新建工作薄，屏幕更新关闭 import xlwings as xw app=xw.App(visible=True,add_book=False) app.display_alerts=False app.screen_updating=False # 文件位置：filepath，打开test文档，然后保存，关闭，结束程序 filepath=r&rsquo;g:\Python Scripts\test.xlsx&rsquo; wb=app.books.open(filepath) wb.save() wb.close() app.quit() 新建Excel文档，命名为test.xlsx，并保存在D盘。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 在单元格输入值 新建test.xlsx，在sheet1的第一个单元格输入 “人生” ，然后保存关闭，退出Excel程序。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;人生&rsquo; wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 打开已保存的test.xlsx，在sheet2的第二个单元格输入“苦短”，然后保存关闭，退出Excel程序 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.open(r&rsquo;d:\test.xlsx&rsquo;) # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;苦短&rsquo; wb.save() wb.close() app.quit() 掌握以上代码，已经完全可以把Excel当作一个txt文本进行数据储存了，也可以读取Excel文件的数据，进行计算后，并将结果保存在Excel中。  引用工作簿、工作表和单元格  引用工作簿，注意工作簿应该首先被打开 wb.=xw.books[&lsquo;工作簿的名字‘] 引用活动工作簿 wb=xw.books.active 引用工作簿中的sheet sht=xw.books[&lsquo;工作簿的名字‘].sheets[&lsquo;sheet的名字&rsquo;] # 或者 wb=xw.……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/xlwings/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+
+                    
+
+
+
+
+
+                </div>
+            </div>
+
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wshoo.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%B0%86%E8%BF%9B%E9%85%92/" title="将进酒">将进酒</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/" title="声声慢">声声慢</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块">Multiprocessing 模块</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例">python 数据库实例</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/scrapy/">scrapy(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/tool/">tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/%E8%AF%97%E6%AD%8C/">诗歌(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wshoo.github.io/tags/git/">git</a>
+    
+    <a href="https://wshoo.github.io/tags/markdown/">markdown</a>
+    
+    <a href="https://wshoo.github.io/tags/mysql/">mysql</a>
+    
+    <a href="https://wshoo.github.io/tags/python/">python</a>
+    
+    <a href="https://wshoo.github.io/tags/scrapy/">scrapy</a>
+    
+    <a href="https://wshoo.github.io/tags/%E8%AF%97%E6%AD%8C/">诗歌</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wshoo.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://wshoo.github.io/">wshoo的博客 By wshoo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+
+</body>
+</html>

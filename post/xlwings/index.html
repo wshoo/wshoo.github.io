@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>xlwings 模块 | wshoo的博客</title>
+    <meta property="og:title" content="xlwings 模块 - wshoo的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="python,数据分析,博客,电影,vlog">
+    <meta name="description" content="xlwings 模块">
+        
+    <meta name="author" content="wshoo">
+    <meta property="og:url" content="https://wshoo.github.io/post/xlwings/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://wshoo.github.io/">
+                        wshoo的博客
+                    </a>
+                
+                <p class="description">爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://wshoo.github.io/">首页</a>
+                    
+                    <a  href="https://wshoo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://wshoo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">xlwings 模块</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            1年1月1日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
+                            
+                        </div>
+                        
+                        
+                        
+                        <div class="post-content">
+                            
+
+<ol>
+<li>打开已保存的Excel文档
+# 导入xlwings模块，打开Excel程序，默认设置：程序可见，只打开不新建工作薄，屏幕更新关闭
+import xlwings as xw
+app=xw.App(visible=True,add_book=False)
+app.display_alerts=False
+app.screen_updating=False
+# 文件位置：filepath，打开test文档，然后保存，关闭，结束程序
+filepath=r&rsquo;g:\Python Scripts\test.xlsx&rsquo;
+wb=app.books.open(filepath)
+wb.save()
+wb.close()
+app.quit()</li>
+<li>新建Excel文档，命名为test.xlsx，并保存在D盘。
+import xlwings as xw
+app=xw.App(visible=True,add_book=False)
+wb=app.books.add()
+wb.save(r&rsquo;d:\test.xlsx&rsquo;)
+wb.close()
+app.quit()</li>
+<li>在单元格输入值
+新建test.xlsx，在sheet1的第一个单元格输入 “人生” ，然后保存关闭，退出Excel程序。
+import xlwings as xw
+app=xw.App(visible=True,add_book=False)
+wb=app.books.add()
+# wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值
+wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;人生&rsquo;
+wb.save(r&rsquo;d:\test.xlsx&rsquo;)
+wb.close()
+app.quit()
+打开已保存的test.xlsx，在sheet2的第二个单元格输入“苦短”，然后保存关闭，退出Excel程序
+import xlwings as xw
+app=xw.App(visible=True,add_book=False)
+wb=app.books.open(r&rsquo;d:\test.xlsx&rsquo;)
+# wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值
+wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;苦短&rsquo;
+wb.save()
+wb.close()
+app.quit()
+掌握以上代码，已经完全可以把Excel当作一个txt文本进行数据储存了，也可以读取Excel文件的数据，进行计算后，并将结果保存在Excel中。</li>
+</ol>
+
+<h3 id="引用工作簿-工作表和单元格">引用工作簿、工作表和单元格</h3>
+
+<ol>
+<li>引用工作簿，注意工作簿应该首先被打开
+wb.=xw.books[&lsquo;工作簿的名字‘]</li>
+<li>引用活动工作簿
+wb=xw.books.active</li>
+<li>引用工作簿中的sheet
+sht=xw.books[&lsquo;工作簿的名字‘].sheets[&lsquo;sheet的名字&rsquo;]
+# 或者
+wb=xw.books[&lsquo;工作簿的名字&rsquo;]
+sht=wb.sheets[sheet的名字]</li>
+<li>引用活动sheet
+sht=xw.sheets.active</li>
+<li>引用A1单元格
+rng=xw.books[&lsquo;工作簿的名字‘].sheets[&lsquo;sheet的名字&rsquo;]
+# 或者
+sht=xw.books[&lsquo;工作簿的名字‘].sheets[&lsquo;sheet的名字&rsquo;]
+rng=sht.range(&lsquo;A1&rsquo;)</li>
+<li>引用活动sheet上的单元格
+# 注意Range首字母大写
+rng=xw.Range(&lsquo;A1&rsquo;)
+其中需要注意的是单元格的完全引用路径是：
+# 第一个Excel程序的第一个工作薄的第一张sheet的第一个单元格
+xw.apps[0].books[0].sheets[0].range(&lsquo;A1&rsquo;)
+迅速引用单元格的方式是
+sht=xw.books[&lsquo;名字&rsquo;].sheets[&lsquo;名字&rsquo;]
+# A1单元格
+rng=sht[’A1&rsquo;]
+# A1:B5单元格
+rng=sht[&lsquo;A1:B5&rsquo;]
+# 在第i+1行，第j+1列的单元格
+# B1单元格
+rng=sht[0,1]
+# A1:J10
+rng=sht[:10,:10]</li>
+</ol>
+
+<p>PS： 对于单元格也可以用表示行列的tuple进行引用
+ # A1单元格的引用
+ xw.Range(1,1)
+ #A1:C3单元格的引用
+ xw.Range((1,1),(3,3))</p>
+
+<h3 id="储存数据">储存数据</h3>
+
+<ol>
+<li>储存单个值
+# 注意&rdquo;.value“
+sht.range(&lsquo;A1&rsquo;).value=1</li>
+<li>储存列表
+# 将列表[1,2,3]储存在A1：C1中
+sht.range(&lsquo;A1&rsquo;).value=[1,2,3]
+# 将列表[1,2,3]储存在A1:A3中
+sht.range(&lsquo;A1&rsquo;).options(transpose=True).value=[1,2,3]
+# 将2x2表格，即二维数组，储存在A1:B2中，如第一行1，2，第二行3，4
+sht.range(&lsquo;A1&rsquo;).options(expand=&lsquo;table&rsquo;)=[[1,2],[3,4]]</li>
+</ol>
+
+<h3 id="读取数据">读取数据</h3>
+
+<ol>
+<li>读取单个值
+# 将A1的值，读取到a变量中
+a=sht.range(&lsquo;A1&rsquo;).value</li>
+<li>将值读取到列表中
+#将A1到A2的值，读取到a列表中
+a=sht.range(&lsquo;A1:A2&rsquo;).value
+# 将第一行和第二行的数据按二维数组的方式读取
+a=sht.range(&lsquo;A1:B2&rsquo;).value</li>
+</ol>
+
+<p>常用函数和方法
+Book 工作簿常用的api
+wb=xw.books[‘工作簿名称&rsquo;]
+wb.activate()激活为当前工作簿
+wb.fullname 返回工作簿的绝对路径
+wb.name 返回工作簿的名称
+wb.save(path=None) 保存工作簿，默认路径为工作簿原路径，若未保存则为脚本所在的路径
+-wb. close() 关闭工作簿
+代码例子：</p>
+
+<h1 id="引用excel程序中-当前的工作簿">引用Excel程序中，当前的工作簿</h1>
+
+<p>wb=xw.books.acitve</p>
+
+<h1 id="返回工作簿的绝对路径">返回工作簿的绝对路径</h1>
+
+<p>x=wb.fullname</p>
+
+<h1 id="返回工作簿的名称">返回工作簿的名称</h1>
+
+<p>x=wb.name</p>
+
+<h1 id="保存工作簿-默认路径为工作簿原路径-若未保存则为脚本所在的路径">保存工作簿，默认路径为工作簿原路径，若未保存则为脚本所在的路径</h1>
+
+<p>x=wb.save(path=None)</p>
+
+<h1 id="关闭工作簿">关闭工作簿</h1>
+
+<p>x=wb.close()
+sheet 常用的api</p>
+
+<h1 id="引用某指定sheet">引用某指定sheet</h1>
+
+<p>sht=xw.books[&lsquo;工作簿名称&rsquo;].sheets[&lsquo;sheet的名称&rsquo;]</p>
+
+<h1 id="激活sheet为活动工作表">激活sheet为活动工作表</h1>
+
+<p>sht.activate()</p>
+
+<h1 id="清除sheet的内容和格式">清除sheet的内容和格式</h1>
+
+<p>sht.clear()</p>
+
+<h1 id="清除sheet的内容">清除sheet的内容</h1>
+
+<p>sht.contents()</p>
+
+<h1 id="获取sheet的名称">获取sheet的名称</h1>
+
+<p>sht.name</p>
+
+<h1 id="删除sheet">删除sheet</h1>
+
+<p>sht.delete
+range常用的api</p>
+
+<h1 id="引用当前活动工作表的单元格">引用当前活动工作表的单元格</h1>
+
+<p>rng=xw.Range(&lsquo;A1&rsquo;)</p>
+
+<h1 id="加入超链接">加入超链接</h1>
+
+<h1 id="rng-add-hyperlink-r-www-baidu-com-百度-提示-点击即链接到百度">rng.add_hyperlink(r&rsquo;www.baidu.com&rsquo;,&lsquo;百度&rsquo;,‘提示：点击即链接到百度&rsquo;)</h1>
+
+<h1 id="取得当前range的地址">取得当前range的地址</h1>
+
+<p>rng.address
+rng.get_address()</p>
+
+<h1 id="清除range的内容">清除range的内容</h1>
+
+<p>rng.clear_contents()</p>
+
+<h1 id="清除格式和内容">清除格式和内容</h1>
+
+<p>rng.clear()</p>
+
+<h1 id="取得range的背景色-以元组形式返回rgb值">取得range的背景色,以元组形式返回RGB值</h1>
+
+<p>rng.color</p>
+
+<h1 id="设置range的颜色">设置range的颜色</h1>
+
+<p>rng.color=(255,255,255)</p>
+
+<h1 id="清除range的背景色">清除range的背景色</h1>
+
+<p>rng.color=None</p>
+
+<h1 id="获得range的第一列列标">获得range的第一列列标</h1>
+
+<p>rng.column</p>
+
+<h1 id="返回range中单元格的数据">返回range中单元格的数据</h1>
+
+<p>rng.count</p>
+
+<h1 id="返回current-region">返回current_region</h1>
+
+<p>rng.current_region</p>
+
+<h1 id="返回ctrl-方向">返回ctrl + 方向</h1>
+
+<p>rng.end(&lsquo;down&rsquo;)</p>
+
+<h1 id="获取公式或者输入公式">获取公式或者输入公式</h1>
+
+<p>rng.formula=&lsquo;=SUM(B1:B5)&rsquo;</p>
+
+<h1 id="数组公式">数组公式</h1>
+
+<p>rng.formula_array</p>
+
+<h1 id="获得单元格的绝对地址">获得单元格的绝对地址</h1>
+
+<p>rng.get_address(row_absolute=True, column_absolute=True,include_sheetname=False, external=False)</p>
+
+<h1 id="获得列宽">获得列宽</h1>
+
+<p>rng.column_width</p>
+
+<h1 id="返回range的总宽度">返回range的总宽度</h1>
+
+<p>rng.width</p>
+
+<h1 id="获得range的超链接">获得range的超链接</h1>
+
+<p>rng.hyperlink</p>
+
+<p>rng.last_cell</p>
+
+<h1 id="range平移">range平移</h1>
+
+<p>rng.offset(row_offset=0,column_offset=0)
+#range进行resize改变range的大小
+rng.resize(row_size=None,column_size=None)</p>
+
+<h1 id="range的第一行行标">range的第一行行标</h1>
+
+<p>rng.row</p>
+
+<h1 id="行的高度-所有行一样高返回行高-不一样返回none">行的高度，所有行一样高返回行高，不一样返回None</h1>
+
+<p>rng.row_height</p>
+
+<h1 id="返回range的总高度">返回range的总高度</h1>
+
+<p>rng.height</p>
+
+<h1 id="返回range的行数和列数">返回range的行数和列数</h1>
+
+<p>rng.shape</p>
+
+<h1 id="返回range所在的sheet">返回range所在的sheet</h1>
+
+<p>rng.sheet
+#返回range的所有行
+rng.rows</p>
+
+<h1 id="range的第一行">range的第一行</h1>
+
+<p>rng.rows[0]</p>
+
+<h1 id="range的总行数">range的总行数</h1>
+
+<p>rng.rows.count</p>
+
+<h1 id="返回range的所有列">返回range的所有列</h1>
+
+<p>rng.columns</p>
+
+<h1 id="返回range的第一列">返回range的第一列</h1>
+
+<p>rng.columns[0]</p>
+
+<h1 id="返回range的列数">返回range的列数</h1>
+
+<p>rng.columns.count</p>
+
+<h1 id="所有range的大小自适应">所有range的大小自适应</h1>
+
+<p>rng.autofit()</p>
+
+<h1 id="所有列宽度自适应">所有列宽度自适应</h1>
+
+<p>rng.columns.autofit()</p>
+
+<h1 id="所有行宽度自适应">所有行宽度自适应</h1>
+
+<p>rng.rows.autofit()
+books 工作簿集合的api</p>
+
+<h1 id="新建工作簿">新建工作簿</h1>
+
+<p>xw.books.add()</p>
+
+<h1 id="引用当前活动工作簿">引用当前活动工作簿</h1>
+
+<p>xw.books.active
+sheets 工作表的集合</p>
+
+<h1 id="新建工作表">新建工作表</h1>
+
+<p>xw.sheets.add(name=None,before=None,after=None)</p>
+
+<h1 id="引用当前活动sheet">引用当前活动sheet</h1>
+
+<p>xw.sheets.active</p>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://wshoo.github.io/">wshoo</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://wshoo.github.io/post/xlwings/">https://wshoo.github.io/post/xlwings/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">Multiprocessing 模块</a></li>
+        
+        <li><a href="/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">super()和__init__()</a></li>
+        
+        <li><a href="/post/%E5%B0%86%E8%BF%9B%E9%85%92/">将进酒</a></li>
+        
+        <li><a href="/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/">声声慢</a></li>
+        
+        <li><a href="/about/">关于我</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://wshoo.github.io/tags/python">python</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wshoo.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%B0%86%E8%BF%9B%E9%85%92/" title="将进酒">将进酒</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/" title="声声慢">声声慢</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块">Multiprocessing 模块</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例">python 数据库实例</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/scrapy/">scrapy(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/tool/">tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/%E8%AF%97%E6%AD%8C/">诗歌(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wshoo.github.io/tags/git/">git</a>
+    
+    <a href="https://wshoo.github.io/tags/markdown/">markdown</a>
+    
+    <a href="https://wshoo.github.io/tags/mysql/">mysql</a>
+    
+    <a href="https://wshoo.github.io/tags/python/">python</a>
+    
+    <a href="https://wshoo.github.io/tags/scrapy/">scrapy</a>
+    
+    <a href="https://wshoo.github.io/tags/%E8%AF%97%E6%AD%8C/">诗歌</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wshoo.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://wshoo.github.io/">wshoo的博客 By wshoo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
+</html>

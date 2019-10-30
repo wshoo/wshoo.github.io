@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>python 数据库实例 | wshoo的博客</title>
+    <meta property="og:title" content="python 数据库实例 - wshoo的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="python,数据分析,博客,电影,vlog">
+    <meta name="description" content="python 数据库实例">
+        
+    <meta name="author" content="wshoo">
+    <meta property="og:url" content="https://wshoo.github.io/post/python-db/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://wshoo.github.io/">
+                        wshoo的博客
+                    </a>
+                
+                <p class="description">爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://wshoo.github.io/">首页</a>
+                    
+                    <a  href="https://wshoo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://wshoo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">python 数据库实例</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            1年1月1日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
+                            
+                        </div>
+                        
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h1 id="python-数据库交互">python 数据库交互</h1>
+
+<h2 id="mysql">MySQL</h2>
+
+<p>MySQL 的安装</p>
+
+<ul>
+<li>sudo apt-get update</li>
+<li>sudo apt-get install -y mysql-server mysql-client</li>
+</ul>
+
+<p>远程访问</p>
+
+<ul>
+<li>sudo nano /etc/mysql/my.cnf</li>
+<li>注释此行：bind-address = 127.0.0.1</li>
+</ul>
+
+<p>启动、关闭和重启MySQL 服务的命令如下：
+- sudo service mysql start
+- sudo service mysql stop
+- sudo service mysql restart</p>
+
+<p>可视化工具 ：MySQL workbench</p>
+
+<pre><code>import pymysql
+
+
+def my_db(host,user,passwd,db,sql,port=3306,charset='utf8'):
+    coon = pymysql.connect(host=host,
+                          user=user,
+                          password=passwd,
+                          db=db,
+                          port=port,
+                          charset=charset,
+                          autocommit=True)
+
+    cur = coon.cursor()   #建立游标
+    sql=sql.strip()
+    cur.execute(sql)   #执行sql语句，但不会返回执行的结果
+    sql_start = sql[:6].lower()#取sql的开头,转成小写
+    if sql_start.startswith('select') or sql_start.startswith('show'):
+        data = cur.fetchall()  #获取到查询的所有结果
+    else:
+        data = 'ok'
+    cur.close()  #关闭游标
+    coon.close()  #关闭连接
+    return data
+
+if __name__ == &quot;__main__&quot;:
+
+    sql = &quot;insert into myapp_book (book_name,add_time) values ('hello world', now());&quot;
+    result = my_db(host='127.0.0.1',user='root',passwd='root',db='yy',sql=sql)
+    print(result)
+
+</code></pre>
+
+<h2 id="mongodb">Mongodb</h2>
+
+<p>MongoDB 的安装
+在终端输入GPK码,添加mongoDB源</p>
+
+<pre><code class="language-sudo"></code></pre>
+
+<p>echo &ldquo;deb [ arch=amd64 ] <a href="https://repo.mongodb.org/apt/ubuntu">https://repo.mongodb.org/apt/ubuntu</a> bionic/mongodb-org/4.0 multiverse&rdquo; | sudo tee /etc/apt/sources.list.d/mongodb.list```</p>
+
+<pre><code class="language-sudo"></code></pre>
+
+<p>sudo apt install mongodb-org```</p>
+
+<p>启动、关闭和重启Mongodb 服务的命令如下：
+sudo service mongod start
+sudo service mongod stop
+sudo service mongod restart</p>
+
+<p>远程访问：</p>
+
+<p>进入到MongoDB 的命令行交互模式下了，在此模式下运行如下命令：</p>
+
+<p><code>use admin</code></p>
+
+<pre><code class="language-db.createUser({user:">
+这样我们就创建了一个用户名为admin ， 密码为adminl234 的用户，赋予最高权限
+
+随后需要修改MongoDB 的配置文件，此时执行如下命令：
+- sudo nano /etc/mongod.conf
+然后修改net 部分为：
+</code></pre>
+
+<p>net:
+　　port: 27017
+　　bindip: 0.0.0.0</p>
+
+<pre><code>另外，还需要添加如下的权限认证配置。此时直接添加如下内容到配置文件即可：
+</code></pre>
+
+<p>security:
+　　authorization: enabled</p>
+
+<pre><code>配置完成之后，我们需要重新启动MongoDB 服务
+
+可视化工具 ：Robo 3T
+</code></pre>
+
+<p>from pymongo import MongoClient</p>
+
+<p>client = MongoClient()</p>
+
+<p>db = client.pymongo_test # client[&lsquo;pymongo_test&rsquo;] 选择数据库，如果这个数据库不存的话，会帮你创建
+collection = db.posts # db[&lsquo;posts] 选择一个集合，就相当于mysql里面表</p>
+
+<p>post_1 = {
+    &lsquo;title&rsquo;: &lsquo;hello&rsquo;,
+    &lsquo;content&rsquo;: &lsquo;first&rsquo;,
+    &lsquo;author&rsquo;: &lsquo;wang&rsquo;
+}
+post_2 = {
+    &lsquo;title&rsquo;: &lsquo;hi&rsquo;,
+    &lsquo;content&rsquo;: &lsquo;second&rsquo;,
+    &lsquo;author&rsquo;: &lsquo;liang&rsquo;
+}
+post_3 = {
+    &lsquo;title&rsquo;: &lsquo;koniciwa&rsquo;,
+    &lsquo;content&rsquo;: &lsquo;third&rsquo;,
+    &lsquo;author&rsquo;: &lsquo;liang&rsquo;
+}</p>
+
+<p>new_result = collection.insert_many([post_1, post_2]) # insert_one
+print(&lsquo;multiple post: {}&lsquo;.format(new_result.inserted_ids))</p>
+
+<p>wangs_post = collection.find_one({&lsquo;author&rsquo;: &lsquo;wang&rsquo;})
+print(wangs_post)</p>
+
+<p>liangs_posts = collection.find({&lsquo;author&rsquo;: &lsquo;liang&rsquo;})
+for post in liangs_posts:
+    print(post)</p>
+
+<pre><code>## redis
+
+redis 安装
+- sudo apt-get -y install redis-server
+
+启动、关闭和重启Mongodb 服务的命令如下：
+sudo service redis-server start
+sudo service redis-server stop
+sudo service redis-server restart
+
+</code></pre>
+
+<p>import redis</p>
+
+<p>r = redis.Redis(host=&lsquo;x.x.x.x&rsquo;,port=6379,password=&lsquo;xxx&rsquo;,db=10)</p>
+
+<pre><code>### 1.操作string类型
+</code></pre>
+
+<p>r.set(&lsquo;a&rsquo;,&lsquo;age18&rsquo;) #增加、修改数据
+res = r.get(&lsquo;111&rsquo;)  #获取数据
+r.delete(&lsquo;nhy_info&rsquo;) #指定一个key删除
+res.decode() #编码，就变成了字符串
+r.keys(&rsquo;*info&rsquo;) #获取到所有的key
+r.exists(&lsquo;dashu_name&rsquo;)) #判断这个key是否存在
+r.flushdb()#可以清空当前数据库里面所有的key
+r.expire(&lsquo;session_crm&rsquo;,600)#指定key的失效时间，秒为单位
+r.ttl(&lsquo;session_crm&rsquo;))#用来看这个key的失效时间
+def op_redis_str(k,t=None,v=None):
+    r = redis.Redis(**REDIS_INFO)
+    if v and t==None:
+        r.set(k,v)
+    elif v and t:
+        r.set(k,v)
+        r.expire(k,t)
+    elif v==None:
+        res=r.get(k)
+        if res==None:
+            return None
+        else:
+            return res.decode()</p>
+
+<pre><code>
+### 2.操作hash类型
+
+</code></pre>
+
+<p>r.hset(&lsquo;session_crm&rsquo;,&lsquo;liuxinyu&rsquo;,&lsquo;sdfjksdklfjssdf&rsquo;) #增加、修改（大k,小k，值）
+r.hdel(&lsquo;session_crm&rsquo;,&lsquo;liuxinyu&rsquo;) #删除指定的小key
+r.delete(&lsquo;session_crm&rsquo;) #直接删除大key
+r.hget(&lsquo;session<em>crm&rsquo;,&lsquo;zhouyifan</em>&rsquo;) #获取指定小key里面的数据
+res = r.hgetall(&lsquo;session_crm&rsquo;)#获取到hash类型里面所有的数据
+def op_hash(k1, k2=None, v=None):
+     if v and k2:
+         r.hset(k1,k2,v)
+     elif v==None and k2==None:
+         res2=r.hgetall(k1)
+         for k, v in res2.items():
+            res2[k.decode()]=res2.pop(k).decode()
+         return res2
+     elif v==None and k2:
+         res3=r.hget(k1,k2)
+         return res3.decode()
+```</p>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://wshoo.github.io/">wshoo</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://wshoo.github.io/post/python-db/">https://wshoo.github.io/post/python-db/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/mysql/">MySQL 常用语句</a></li>
+        
+        <li><a href="/post/%E5%B0%86%E8%BF%9B%E9%85%92/">将进酒</a></li>
+        
+        <li><a href="/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/">声声慢</a></li>
+        
+        <li><a href="/about/">关于我</a></li>
+        
+        <li><a href="/post/linkextractor/">scrapy 中的 LinkExtractor</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://wshoo.github.io/tags/mysql">MySQL</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wshoo.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%B0%86%E8%BF%9B%E9%85%92/" title="将进酒">将进酒</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/" title="声声慢">声声慢</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块">Multiprocessing 模块</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例">python 数据库实例</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/scrapy/">scrapy(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/tool/">tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/%E8%AF%97%E6%AD%8C/">诗歌(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wshoo.github.io/tags/git/">git</a>
+    
+    <a href="https://wshoo.github.io/tags/markdown/">markdown</a>
+    
+    <a href="https://wshoo.github.io/tags/mysql/">mysql</a>
+    
+    <a href="https://wshoo.github.io/tags/python/">python</a>
+    
+    <a href="https://wshoo.github.io/tags/scrapy/">scrapy</a>
+    
+    <a href="https://wshoo.github.io/tags/%E8%AF%97%E6%AD%8C/">诗歌</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wshoo.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://wshoo.github.io/">wshoo的博客 By wshoo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
+</html>

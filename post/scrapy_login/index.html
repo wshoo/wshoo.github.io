@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>scrapy--模拟登陆 | wshoo的博客</title>
+    <meta property="og:title" content="scrapy--模拟登陆 - wshoo的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="python,数据分析,博客,电影,vlog">
+    <meta name="description" content="scrapy--模拟登陆">
+        
+    <meta name="author" content="wshoo">
+    <meta property="og:url" content="https://wshoo.github.io/post/scrapy_login/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://wshoo.github.io/">
+                        wshoo的博客
+                    </a>
+                
+                <p class="description">爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://wshoo.github.io/">首页</a>
+                    
+                    <a  href="https://wshoo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://wshoo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">scrapy--模拟登陆</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            1年1月1日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/scrapy">scrapy</a></span>
+                            
+                        </div>
+                        
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h1 id="scrapy-模拟登陆">scrapy&ndash;模拟登陆</h1>
+
+<h2 id="cookie">cookie</h2>
+
+<blockquote>
+<p>HTTP是无状态的协议，为了保持连接状态，引入cookie机制。
+cookie 是http消息头的一种属性， 包括：
+- cookie名字（name）cookie的值（value）
+- cookie的过期时间（Expires/Max-Age）
+- cookie作用路径（Path）
+- cookie所在的域名（Domian）,使用cookie进行安全连接（Secure）
+- cookie大小Size
+其中前两个为必须条件</p>
+</blockquote>
+
+<h2 id="表单">表单</h2>
+
+<p>使用的Chrome自带的开发者工具中的Network功能，在登录界面输入错误的信息，得到Form Data，下面为知乎的登录信息:</p>
+
+<pre><code>_xsrf: fawfasdfgasdfgadsf
+email: 11@22.com
+password: 1123123
+rememberme: y
+</code></pre>
+
+<p>其中_xsrf是一种验证机制，可以从登录界面的源代码中找到。</p>
+
+<h2 id="scrapy模拟登陆">scrapy模拟登陆</h2>
+
+<p>示例：</p>
+
+<pre><code>def start_requests(self):
+    return [Request(&quot;https://www.zhihu.com/login&quot;, callback = self.post_login)]  #重写了爬虫类的方法, 实现了自定义请求, 运行成功后会调用callback回调函数
+
+#FormRequeset
+def post_login(self, response):
+    print 'Preparing login'
+    #下面这句话用于抓取请求网页后返回网页中的_xsrf字段的文字, 用于成功提交表单
+    xsrf = Selector(response).xpath('//input[@name=&quot;_xsrf&quot;]/@value').extract()[0]
+    print xsrf
+    #FormRequeset.from_response是Scrapy提供的一个函数, 用于post表单
+    #登陆成功后, 会调用after_login回调函数
+    return [FormRequest.from_response(response, formdata = {
+                            '_xsrf': xsrf,
+                            'email': '123456',
+                            'password': '123456'
+                            },
+                            callback = self.after_login
+                            )]
+</code></pre>
+
+<h2 id="保持会话">保持会话</h2>
+
+<p>为了能使用同一个状态持续的爬取网站, 就需要保存cookie, 使用cookie保存状态, Scrapy提供了cookie处理的中间件
+CookiesMiddleware - 这个cookie中间件保存追踪web服务器发出的cookie, 并将这个cookie在接来下的请求的时候进行发送
+官方示例：</p>
+
+<pre><code>for i, url in enumerate(urls):
+    yield scrapy.Request(url, meta={'cookiejar': i},
+        callback=self.parse_page)
+
+def parse_page(self, response):
+    # do some processing
+    return scrapy.Request(&quot;http://www.example.com/otherpage&quot;,
+        meta={'cookiejar': response.meta['cookiejar']},
+        callback=self.parse_other_page)
+</code></pre>
+
+<p>示例：</p>
+
+<pre><code>#重写了爬虫类的方法, 实现了自定义请求, 运行成功后会调用callback回调函数
+    def start_requests(self):
+        return [Request(&quot;https://www.zhihu.com/login&quot;, meta = {'cookiejar' : 1}, callback = self.post_login)]  #添加了meta
+
+    #FormRequeset出问题了
+    def post_login(self, response):
+        print 'Preparing login'
+        #下面这句话用于抓取请求网页后返回网页中的_xsrf字段的文字, 用于成功提交表单
+        xsrf = Selector(response).xpath('//input[@name=&quot;_xsrf&quot;]/@value').extract()[0]
+        print xsrf
+        #FormRequeset.from_response是Scrapy提供的一个函数, 用于post表单
+        #登陆成功后, 会调用after_login回调函数
+        return [FormRequest.from_response(response,   #&quot;http://www.zhihu.com/login&quot;,
+                            meta = {'cookiejar' : response.meta['cookiejar']}, #注意这里cookie的获取
+                            headers = self.headers,
+                            formdata = {
+                            '_xsrf': xsrf,
+                            'email': '123456',
+                            'password': '123456'
+                            },
+                            callback = self.after_login,
+                            dont_filter = True  # URL不参与去重
+                            )]
+</code></pre>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://wshoo.github.io/">wshoo</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://wshoo.github.io/post/scrapy_login/">https://wshoo.github.io/post/scrapy_login/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/linkextractor/">scrapy 中的 LinkExtractor</a></li>
+        
+        <li><a href="/post/scrapy_proxy/">scrapy--proxy代理</a></li>
+        
+        <li><a href="/post/scrapy_workflow/">scrapy--proxy代理</a></li>
+        
+        <li><a href="/post/%E5%B0%86%E8%BF%9B%E9%85%92/">将进酒</a></li>
+        
+        <li><a href="/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/">声声慢</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://wshoo.github.io/tags/scrapy">scrapy</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wshoo.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%B0%86%E8%BF%9B%E9%85%92/" title="将进酒">将进酒</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/" title="声声慢">声声慢</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块">Multiprocessing 模块</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例">python 数据库实例</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/scrapy/">scrapy(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/tool/">tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/%E8%AF%97%E6%AD%8C/">诗歌(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wshoo.github.io/tags/git/">git</a>
+    
+    <a href="https://wshoo.github.io/tags/markdown/">markdown</a>
+    
+    <a href="https://wshoo.github.io/tags/mysql/">mysql</a>
+    
+    <a href="https://wshoo.github.io/tags/python/">python</a>
+    
+    <a href="https://wshoo.github.io/tags/scrapy/">scrapy</a>
+    
+    <a href="https://wshoo.github.io/tags/%E8%AF%97%E6%AD%8C/">诗歌</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wshoo.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://wshoo.github.io/">wshoo的博客 By wshoo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
+</html>

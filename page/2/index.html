@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>wshoo的博客 | 爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索</title>
+    <meta property="og:title" content="wshoo的博客 | 爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索">
+    <meta property="og:type" content="website">
+    <meta name="Keywords" content="python,数据分析,博客,电影,vlog">
+    <meta name="description" content="">
+    <meta property="og:url" content="https://wshoo.github.io/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/rss+xml+xml" href="https://wshoo.github.io/index.xml" title="wshoo的博客" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <h1>
+                        <a id="logo" href="https://wshoo.github.io/">
+                            wshoo的博客
+                        </a>
+                    </h1>
+                
+                <p class="description">爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://wshoo.github.io/">首页</a>
+                    
+                    <a  href="https://wshoo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://wshoo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理" >scrapy--proxy代理</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/scrapy">scrapy</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                 scrapy工作流程  Spiders(爬虫):它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器) Engine(引擎)：负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。 Scheduler(调度器)：它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。 Downloader(下载器)：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理 ItemPipeline(管道):它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方. Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。 Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）  ……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_workflow/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/scrapy_login/" title="scrapy--模拟登陆" >scrapy--模拟登陆</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/scrapy">scrapy</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                scrapy&ndash;模拟登陆 cookie  HTTP是无状态的协议，为了保持连接状态，引入cookie机制。 cookie 是http消息头的一种属性， 包括： - cookie名字（name）cookie的值（value） - cookie的过期时间（Expires/Max-Age） - cookie作用路径（Path） - cookie所在的域名（Domian）,使用cookie进行安全连接（Secure） - cookie大小Size 其中前两个为必须条件
+ 表单 使用的Chrome自带的开发者工具中的Network功能，在登录界面输入错误的信息，得到Form Data，下面为知乎的登录信息:
+_xsrf: fawfasdfgasdfgadsf email: 11@22.com password: 1123123 rememberme: y  其中_xsrf是一种验证机制，可以从登录界面的源代码中找到。
+scrapy模拟登陆 示例：
+def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot;, callback = self.post_login)] #重写了爬虫类的方法, 实现了自定义请求, 运行成功后会调用callback回调函数 #FormRequeset def post_login(self, response): print 'Preparing login' #下面这句话用于抓取请求网页后返回网页中的_xsrf字段的文字, 用于成功提交表单 xsrf = Selector(response).xpath('//input[@name=&quot;_xsrf&quot;]/@value').extract()[0] print xsrf #FormRequeset.from_response是Scrapy提供的一个函数, 用于post表单 #登陆成功后, 会调用after_login回调函数 return [FormRequest.from_response(response, formdata = { '_xsrf': xsrf, 'email': '123456', 'password': '123456' }, callback = self.……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_login/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/" title="super()和__init__()" >super()和__init__()</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                ##单继承时super()和init()实现的功能是类似的
+class Base(object): def __init__(self): print 'Base create' class childA(Base): def __init__(self): print 'creat A ', Base.__init__(self) class childB(Base): def __init__(self): print 'creat B ', super(childB, self).__init__() base = Base() a = childA() b = childB()  输出结果：
+Base create creat A Base create creat B Base create  区别是使用super()继承时不用显式引用基类。
+##super()只能用于新式类中
+把基类改为旧式类，即不继承任何基类
+class Base(): def __init__(self): print 'Base create'  执行时，在初始化b时就会报错：
+super(childB, self).__init__() TypeError: must be type, not classobj  ##super不是父类，而是继承顺序的下一个类 在多重继承时会涉及继承顺序，super（）相当于返回继承顺序的下一个类，而不是父类，类似于这样的功能：……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/xlwings/" title="xlwings 模块" >xlwings 模块</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                打开已保存的Excel文档 # 导入xlwings模块，打开Excel程序，默认设置：程序可见，只打开不新建工作薄，屏幕更新关闭 import xlwings as xw app=xw.App(visible=True,add_book=False) app.display_alerts=False app.screen_updating=False # 文件位置：filepath，打开test文档，然后保存，关闭，结束程序 filepath=r&rsquo;g:\Python Scripts\test.xlsx&rsquo; wb=app.books.open(filepath) wb.save() wb.close() app.quit() 新建Excel文档，命名为test.xlsx，并保存在D盘。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 在单元格输入值 新建test.xlsx，在sheet1的第一个单元格输入 “人生” ，然后保存关闭，退出Excel程序。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;人生&rsquo; wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 打开已保存的test.xlsx，在sheet2的第二个单元格输入“苦短”，然后保存关闭，退出Excel程序 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.open(r&rsquo;d:\test.xlsx&rsquo;) # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;苦短&rsquo; wb.save() wb.close() app.quit() 掌握以上代码，已经完全可以把Excel当作一个txt文本进行数据储存了，也可以读取Excel文件的数据，进行计算后，并将结果保存在Excel中。  引用工作簿、工作表和单元格  引用工作簿，注意工作簿应该首先被打开 wb.=xw.books[&lsquo;工作簿的名字‘] 引用活动工作簿 wb=xw.books.active 引用工作簿中的sheet sht=xw.books[&lsquo;工作簿的名字‘].sheets[&lsquo;sheet的名字&rsquo;] # 或者 wb=xw.……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/xlwings/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/archives/" title="归档" >归档</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                1年1月1日
+                            </date>
+                            
+                            <div class="post-content">
+                                ……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/archives/">阅读全文</a></p>
+                        </article>
+                    
+                    
+                    
+
+
+
+<ol class="page-navigator">
+    
+    <li class="prev">
+        <a href="https://wshoo.github.io/">上一页</a>
+    </li>
+    
+
+    
+    <li >
+        <a href="https://wshoo.github.io/">1</a>
+    </li>
+    
+    <li  class="current">
+        <a href="https://wshoo.github.io/page/2/">2</a>
+    </li>
+    
+
+    
+</ol>
+
+
+
+                </div>
+            </div>
+
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wshoo.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%B0%86%E8%BF%9B%E9%85%92/" title="将进酒">将进酒</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/" title="声声慢">声声慢</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块">Multiprocessing 模块</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例">python 数据库实例</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/scrapy/">scrapy(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/tool/">tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/%E8%AF%97%E6%AD%8C/">诗歌(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wshoo.github.io/tags/git/">git</a>
+    
+    <a href="https://wshoo.github.io/tags/markdown/">markdown</a>
+    
+    <a href="https://wshoo.github.io/tags/mysql/">mysql</a>
+    
+    <a href="https://wshoo.github.io/tags/python/">python</a>
+    
+    <a href="https://wshoo.github.io/tags/scrapy/">scrapy</a>
+    
+    <a href="https://wshoo.github.io/tags/%E8%AF%97%E6%AD%8C/">诗歌</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wshoo.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://wshoo.github.io/">wshoo的博客 By wshoo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+
+</body>
+</html>

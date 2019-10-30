@@ -6,10 +6,43 @@
     <description>Recent content in tool on wshoo的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 18 Oct 2018 06:18:30 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 19 Oct 2018 06:18:30 +0800</lastBuildDate>
     
 	<atom:link href="https://wshoo.github.io/categories/tool/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>markdown 语法</title>
+      <link>https://wshoo.github.io/post/markdown/</link>
+      <pubDate>Fri, 19 Oct 2018 06:18:30 +0800</pubDate>
+      
+      <guid>https://wshoo.github.io/post/markdown/</guid>
+      <description>关于Markdown Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式
+优点  简单标记符完成排版，所写即所见，让你专注于文字而不是排版 纯文本，所以兼容性极强，可以用所有文本编辑器打开
+ 格式转换方便，Markdown文本可以轻松转换为 html、pdf等
+ Markdown 的标记语法有极好的可读性  Markdown简单语法示例 段落和换行  一个段落由一个或多个连续的文本行组成，它的前后要有一 个以上的空行
+ 通过在段位敲两个空格再回车实现换行
+标题 标题能显示出文章的结构。行首插入1-6个 # ，每增加一个 # 表示更深入层次的内容，对应到标题的深度由 1-6 阶
+# 这是H1
+## 这是H2
+### 这是H3
+...
+###### 这是H6
+列表 列表就是将内容分为几个小点通过在前面打一个‘-’，或者‘+’实现
+ 1
+ 2
+ 3
+有序列表则用数字接着几个英文句点，作用在于：你可以将它们的顺序打乱，而输出时会按照顺序输出
+引用 在行首加‘&amp;gt;’实现 例：
+&amp;gt; 苟利国家生死以，岂因祸福避趋之 &amp;mdash;林则徐
+  代码区块 通过 代码（键盘Esc键下方的符号）实现 例：
+print(&#39;Helloworld&#39;)
+分割线 通过连用三个以上‘×××’来实现
+强调 使用‘×’或‘—’将要强调的内容包围
+em
+** strong **
+插入图片和链接  一个惊叹号 ！ 接着一个方括号[],里面放图片的替代文字 接着一个普通括号（），里面放图片的网址</description>
+    </item>
     
     <item>
       <title>git 基本使用</title>

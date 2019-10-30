@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>scrapy on wshoo的博客</title>
+    <link>https://wshoo.github.io/categories/scrapy/</link>
+    <description>Recent content in scrapy on wshoo的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="https://wshoo.github.io/categories/scrapy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>scrapy--proxy代理</title>
+      <link>https://wshoo.github.io/post/scrapy_proxy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wshoo.github.io/post/scrapy_proxy/</guid>
+      <description>scrapy&amp;ndash;proxy代理的设置 在构造的请求中添加meta属性： 示例：
+def start_requests(self): yield scrapy.FormRequest(url=self.start_urls[0], headers=self.header, formdata=self.data, callback=self.parse_page, meta={&#39;proxy&#39;:&#39;http://1.2.3.4:11&#39;}, )  显然在有多个spider时这种方法不够灵活
+以中间件的形式添加 在middlewares.py中添加：
+import random, base64 class ProxyMiddleware(object): proxyList = [&#39;36.250.69.4:80&#39;, &#39;58.18.52.168:3128&#39;, &#39;58.253.238.243:80&#39;, &#39;60.191.164.22:3128&#39;, &#39;60.191.167.93:3128&#39;] def process_request(self, request, spider): # Set the location of the proxy pro_adr = random.choice(self.proxyList) print(&amp;quot;USE PROXY -&amp;gt; &amp;quot;+pro_adr) request.meta[&#39;proxy&#39;] = &amp;quot;http://&amp;quot;+ pro_adr &#39;&#39;&#39;这里用的免费代理,不用用户名密码的.如果有用户名和密码,还要加入以下代码 proxy_user_pass = &amp;quot;USERNAME:PASSWORD&amp;quot; encoded_user_pass = base64.encodestring(proxy_user_pass) request.headers[&#39;Proxy-Authorization&#39;] = &#39;Basic &#39; + encoded_user_pass&#39;&#39;&#39;  settings.py:
+DOWNLOADER_MIDDLEWARES = { #项目名称改成自己的 &#39;pro_name.</description>
+    </item>
+    
+    <item>
+      <title>scrapy--proxy代理</title>
+      <link>https://wshoo.github.io/post/scrapy_workflow/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wshoo.github.io/post/scrapy_workflow/</guid>
+      <description> scrapy工作流程  Spiders(爬虫):它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器) Engine(引擎)：负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。 Scheduler(调度器)：它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。 Downloader(下载器)：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理 ItemPipeline(管道):它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方. Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。 Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）  </description>
+    </item>
+    
+    <item>
+      <title>scrapy--模拟登陆</title>
+      <link>https://wshoo.github.io/post/scrapy_login/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wshoo.github.io/post/scrapy_login/</guid>
+      <description>scrapy&amp;ndash;模拟登陆 cookie  HTTP是无状态的协议，为了保持连接状态，引入cookie机制。 cookie 是http消息头的一种属性， 包括： - cookie名字（name）cookie的值（value） - cookie的过期时间（Expires/Max-Age） - cookie作用路径（Path） - cookie所在的域名（Domian）,使用cookie进行安全连接（Secure） - cookie大小Size 其中前两个为必须条件
+ 表单 使用的Chrome自带的开发者工具中的Network功能，在登录界面输入错误的信息，得到Form Data，下面为知乎的登录信息:
+_xsrf: fawfasdfgasdfgadsf email: 11@22.com password: 1123123 rememberme: y  其中_xsrf是一种验证机制，可以从登录界面的源代码中找到。
+scrapy模拟登陆 示例：
+def start_requests(self): return [Request(&amp;quot;https://www.zhihu.com/login&amp;quot;, callback = self.post_login)] #重写了爬虫类的方法, 实现了自定义请求, 运行成功后会调用callback回调函数 #FormRequeset def post_login(self, response): print &#39;Preparing login&#39; #下面这句话用于抓取请求网页后返回网页中的_xsrf字段的文字, 用于成功提交表单 xsrf = Selector(response).xpath(&#39;//input[@name=&amp;quot;_xsrf&amp;quot;]/@value&#39;).extract()[0] print xsrf #FormRequeset.from_response是Scrapy提供的一个函数, 用于post表单 #登陆成功后, 会调用after_login回调函数 return [FormRequest.from_response(response, formdata = { &#39;_xsrf&#39;: xsrf, &#39;email&#39;: &#39;123456&#39;, &#39;password&#39;: &#39;123456&#39; }, callback = self.</description>
+    </item>
+    
+  </channel>
+</rss>

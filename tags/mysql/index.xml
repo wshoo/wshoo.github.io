@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL on wshoo的博客</title>
+    <link>https://wshoo.github.io/tags/mysql/</link>
+    <description>Recent content in MySQL on wshoo的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 28 Oct 2018 06:18:30 +0800</lastBuildDate>
+    
+	<atom:link href="https://wshoo.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MySQL 常用语句</title>
+      <link>https://wshoo.github.io/post/mysql/</link>
+      <pubDate>Sun, 28 Oct 2018 06:18:30 +0800</pubDate>
+      
+      <guid>https://wshoo.github.io/post/mysql/</guid>
+      <description>MySQL：众多关系型数据库中的一种 修改mysql默认密码 使用 sudo mysql -u root -p 登录，密码为空
+use mysql; update user set authentication_string=PASSWORD(&amp;quot;这里输入你要改的密码&amp;quot;) where User=&#39;root&#39;; #更改密码 update user set plugin=&amp;quot;mysql_native_password&amp;quot;; #如果没这一行可能也会报一个错误，因此需要运行这一行 flush privileges; #更新所有操作权限 quit;  数据库操作：  进入mysql 命令行: mysql -uroot -p 查看所有数据库: show databases; 创建数据库： create database niu charset utf8; 删除数据库： drop database niu; 选择数据库： use databases; 查看所有表： show tables; 查看创建数据库的语句：show create database databasename; 查看创建表的语句：show create table tablename; 查看表结构：desc tablename;  表操作： 约束  自增长 auto_increment 非空 not null 默认值 default &amp;lsquo;xx&amp;rsquo; 唯一 unique 指定字符集 charset 主键 primary key 外键 增加两个表之间的联系  增：  学生表</description>
+    </item>
+    
+    <item>
+      <title>python 数据库实例</title>
+      <link>https://wshoo.github.io/post/python-db/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wshoo.github.io/post/python-db/</guid>
+      <description>python 数据库交互 MySQL MySQL 的安装
+ sudo apt-get update sudo apt-get install -y mysql-server mysql-client  远程访问
+ sudo nano /etc/mysql/my.cnf 注释此行：bind-address = 127.0.0.1  启动、关闭和重启MySQL 服务的命令如下： - sudo service mysql start - sudo service mysql stop - sudo service mysql restart
+可视化工具 ：MySQL workbench
+import pymysql def my_db(host,user,passwd,db,sql,port=3306,charset=&#39;utf8&#39;): coon = pymysql.connect(host=host, user=user, password=passwd, db=db, port=port, charset=charset, autocommit=True) cur = coon.cursor() #建立游标 sql=sql.strip() cur.execute(sql) #执行sql语句，但不会返回执行的结果 sql_start = sql[:6].lower()#取sql的开头,转成小写 if sql_start.</description>
+    </item>
+    
+  </channel>
+</rss>

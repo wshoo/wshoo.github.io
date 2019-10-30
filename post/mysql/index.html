@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>MySQL 常用语句 | wshoo的博客</title>
+    <meta property="og:title" content="MySQL 常用语句 - wshoo的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2018-10-28T06:18:30&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2018-10-28T06:18:30&#43;08:00">
+        
+    <meta name="Keywords" content="python,数据分析,博客,电影,vlog">
+    <meta name="description" content="MySQL 常用语句">
+        
+    <meta name="author" content="wshoo">
+    <meta property="og:url" content="https://wshoo.github.io/post/mysql/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://wshoo.github.io/">
+                        wshoo的博客
+                    </a>
+                
+                <p class="description">爬虫，数据分析，电影迷，不爱看书，取巧，自闭男孩，好奇探索</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://wshoo.github.io/">首页</a>
+                    
+                    <a  href="https://wshoo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://wshoo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">MySQL 常用语句</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2018年10月28日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/database">database</a></span>
+                            
+                        </div>
+                        
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h1 id="mysql-众多关系型数据库中的一种">MySQL：众多关系型数据库中的一种</h1>
+
+<h2 id="修改mysql默认密码">修改mysql默认密码</h2>
+
+<p>使用 <code>sudo mysql -u root -p</code> 登录，密码为空</p>
+
+<pre><code>use mysql;
+update user set authentication_string=PASSWORD(&quot;这里输入你要改的密码&quot;) where User='root'; #更改密码
+update user set plugin=&quot;mysql_native_password&quot;; #如果没这一行可能也会报一个错误，因此需要运行这一行
+flush privileges; #更新所有操作权限
+quit;
+</code></pre>
+
+<h2 id="数据库操作">数据库操作：</h2>
+
+<ul>
+<li>进入mysql 命令行: mysql -uroot -p</li>
+<li>查看所有数据库: show databases;</li>
+<li>创建数据库： create database niu charset utf8;</li>
+<li>删除数据库： drop database niu;</li>
+<li>选择数据库： use databases;</li>
+<li>查看所有表： show tables;</li>
+<li>查看创建数据库的语句：show create database databasename;</li>
+<li>查看创建表的语句：show create table tablename;</li>
+<li>查看表结构：desc tablename;</li>
+</ul>
+
+<h2 id="表操作">表操作：</h2>
+
+<h3 id="约束">约束</h3>
+
+<ul>
+<li>自增长
+auto_increment</li>
+<li>非空
+not null</li>
+<li>默认值
+default &lsquo;xx&rsquo;</li>
+<li>唯一
+unique</li>
+<li>指定字符集
+charset</li>
+<li>主键
+primary key</li>
+<li>外键
+增加两个表之间的联系</li>
+</ul>
+
+<h3 id="增">增：</h3>
+
+<ul>
+<li><p>学生表</p>
+
+<pre><code>create table students(
+id int auto_increment primary key，
+name varchar(10) not null，
+sex varchar(3) default '女',
+address varchar(50),
+phone int not null unique,
+age，
+);
+</code></pre></li>
+
+<li><p>成绩表</p>
+
+<pre><code>create table scores(
+id int auto_increnent primary key,
+s_id int not null,
+grade float not null,
+);
+</code></pre></li>
+</ul>
+
+<h3 id="删">删:</h3>
+
+<ul>
+<li>drop table tablename;</li>
+<li>truncate tablename;#快速删除表</li>
+</ul>
+
+<h3 id="改">改:</h3>
+
+<ul>
+<li>alter table oldtable rename newtable; #改表名</li>
+<li>alter table tablename modify name varchar(20);#改表结构</li>
+<li>alter table tablename change name newname varchar(20);#改表结构</li>
+<li>alter table tablename add age float after name;#新增字段的位置</li>
+</ul>
+
+<h3 id="查">查：</h3>
+
+<ul>
+<li>show create table tablename ;#查看新建表语句</li>
+<li>desc table;#查看表结构</li>
+<li>show tables ;#查看所有表</li>
+</ul>
+
+<h3 id="数据">数据：</h3>
+
+<h4 id="增-1">增</h4>
+
+<ul>
+<li>insert into student (name,money,sex,phone) values (&lsquo;hk&rsquo;,10000,&lsquo;男&rsquo;,188);</li>
+
+<li><p>insert into student values(&ldquo;,&lsquo;小明&rsquo;,100,&rdquo;,120);</p>
+
+<h4 id="删-1">删</h4></li>
+
+<li><p>turncate tablename； #删除整表数据，自增长id从头再来，快速，从磁盘直接删除，不可恢复</p></li>
+
+<li><p>delete from student； #删除整个表的数据，自增长继续</p>
+
+<h4 id="改-1">改</h4></li>
+
+<li><p>update student set money=100；#不指定条件，修改所有</p></li>
+
+<li><p>update student set money=110 where name=&lsquo;hk&rsquo;;#只改hk</p></li>
+</ul>
+
+<blockquote>
+<p>ps:自动提交
+取消自动提交   set @@autocommitt=0;
+               select @@autocommitt=0;
+自动提交取消后，当前会话显示已经成功执行，其实后台并没有执行</p>
+</blockquote>
+
+<h4 id="查-1">查：</h4>
+
+<ul>
+<li>select * from students limit 1,5; #从第几条开始，下面的x条，不包含开始的那一条</li>
+<li>SELECT * from students limit 5;查询5条</li>
+<li>SELECT id,stu_name,sex,money,phone from students;#指定查询的字段</li>
+<li>SELECT * from students;#查询所有的数据</li>
+<li>SELECT * from students where sex=&lsquo;男&rsquo;;#指定条件</li>
+<li>SELECT * from students where sex=&lsquo;男&rsquo; and money&gt;100; #多个条件，必须同时满足</li>
+<li>SELECT * from students where sex=&lsquo;男&rsquo; or sex=&lsquo;未知&rsquo; ; #多个条件，有一个满足即可</li>
+<li>SELECT * from students where sex !=&lsquo;男&rsquo;; #&lt;&gt;也是不等于</li>
+<li>SELECT * FROM students where addr like &lsquo;%东京%&rsquo;;#模糊匹配，%代表的是通配符，必须得用like</li>
+<li>SELECT * from students a where a.stu<em>name like &lsquo;姚</em>&rsquo;;#_通配符表示任意一个单字符，姚字后面只能跟一个字</li>
+<li>SELECT a.stu_name &lsquo;学生名称&rsquo;,a.phone &lsquo;学生电话&rsquo; from students as a where a.stu_name=&lsquo;姚远&rsquo;;#给表起别名,as可以省略</li>
+<li>SELECT * from students a where a.stu_name in (&lsquo;牛牛&rsquo;,&lsquo;林倩&rsquo;,&lsquo;林远&rsquo;);# in</li>
+<li>SELECT * from students a where a.money BETWEEN 1000 and 10000;#在什么什么之间的数据</li>
+<li>SELECT * from students ORDER BY money desc;#order by xxx desc，根据哪个字段继续排序，默认是升序，降序是desc，升序asc</li>
+<li>SELECT * from students a where a.addr = &ldquo; or a.addr is null; #查询字段为空的数据</li>
+<li>SELECT DISTINCT a.money from students a ;#去重</li>
+<li>SELECT COUNT(*) &lsquo;学生人数&rsquo; from students where sex=&lsquo;女&rsquo;; #统计行数</li>
+<li>SELECT MAX(a.money) 钱最多 from students a; #最大值</li>
+<li>SELECT min(money) 钱最少 from students;#最小值</li>
+<li>SELECT AVG(a.money) 平均多少钱 from students a; #平均数</li>
+<li>SELECT sum(a.money) 总共多少钱 from students a;#总和</li>
+<li>SELECT sex 性别,count(*) 人数 from students GROUP BY sex; #分组</li>
+<li>SELECT <em>,COUNT(</em>) from students GROUP BY sex,class; #多个字段进行分组</li>
+<li>SELECT id,stu_name from students UNION SELECT id,t_name from teacher;#用来合并两条select语句的结果，两条select语句字段数量要一致，并且数据类型也要一致union和union all的区别就是一个会去重一个不会</li>
+</ul>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://wshoo.github.io/">wshoo</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://wshoo.github.io/post/mysql/">https://wshoo.github.io/post/mysql/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/python-db/">python 数据库实例</a></li>
+        
+        <li><a href="/post/markdown/">markdown 语法</a></li>
+        
+        <li><a href="/post/git/">git 基本使用</a></li>
+        
+        <li><a href="/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">Multiprocessing 模块</a></li>
+        
+        <li><a href="/post/scrapy_workflow/">scrapy--proxy代理</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://wshoo.github.io/tags/mysql">MySQL</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wshoo.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%B0%86%E8%BF%9B%E9%85%92/" title="将进酒">将进酒</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/%E5%A3%B0%E5%A3%B0%E6%85%A2/" title="声声慢">声声慢</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块">Multiprocessing 模块</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例">python 数据库实例</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/scrapy/">scrapy(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/tool/">tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/categories/%E8%AF%97%E6%AD%8C/">诗歌(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wshoo.github.io/tags/git/">git</a>
+    
+    <a href="https://wshoo.github.io/tags/markdown/">markdown</a>
+    
+    <a href="https://wshoo.github.io/tags/mysql/">mysql</a>
+    
+    <a href="https://wshoo.github.io/tags/python/">python</a>
+    
+    <a href="https://wshoo.github.io/tags/scrapy/">scrapy</a>
+    
+    <a href="https://wshoo.github.io/tags/%E8%AF%97%E6%AD%8C/">诗歌</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wshoo.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://wshoo.github.io/">wshoo的博客 By wshoo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
+</html>
