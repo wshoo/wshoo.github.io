@@ -78,6 +78,111 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/xlwings/">xlwings 模块</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年2月23日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                打开已保存的Excel文档 # 导入xlwings模块，打开Excel程序，默认设置：程序可见，只打开不新建工作薄，屏幕更新关闭 import xlwings as xw app=xw.App(visible=True,add_book=False) app.display_alerts=False app.screen_updating=False # 文件位置：filepath，打开test文档，然后保存，关闭，结束程序 filepath=r&rsquo;g:\Python Scripts\test.xlsx&rsquo; wb=app.books.open(filepath) wb.save() wb.close() app.quit() 新建Excel文档，命名为test.xlsx，并保存在D盘。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 在单元格输入值 新建test.xlsx，在sheet1的第一个单元格输入 “人生” ，然后保存关闭，退出Excel程序。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;人生&rsquo; wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 打开已保存的test.xlsx，在sheet2的第二个单元格输入“苦短”，然后保存关闭，退出Excel程序 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.open(r&rsquo;d:\test.xlsx&rsquo;) # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;苦短&rsquo; wb.save() wb.close() app.quit() 掌握以上代码，已经完全可以把Excel当作一个txt文本进行数据储存了，也可以读取Excel文件的数据，进行计算后，并将结果保存在Excel中。  引用工作簿、工作表和单元格  引用工作簿，注意工作簿应该首先被打开 wb.=xw.books[&lsquo;工作簿的名字‘] 引用活动工作簿 wb=xw.books.active 引用工作簿中的sheet sht=xw.books[&lsquo;工作簿的名字‘].sheets[&lsquo;sheet的名字&rsquo;] # 或者 wb=xw.……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/xlwings/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">Multiprocessing 模块</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年1月23日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                众所周知，Python中的GIL限制了Python多线程并行对多核CPU的利用，但是我们仍然可以通过各种其他的方式来让Python真正利用多核资源, 例如通过C/C++扩展来实现多线程/多进程, 以及直接利用Python的多进程模块multiprocessing来进行多进程编程。
+ 多进程 Multiprocessing 模块 Process 类 Process 类用来描述一个进程对象。创建子进程的时候，只需要传入一个执行函数和函数的参数即可完成 Process 示例的创建。
+multiprocessing.Process(group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None) # target -- 函数名 # args -- tuple形式参数   star() 启动进程 join() 进程同步，等待所有进程退出 close() 阻止多余的进程涌入进程池pool造成进程阻塞  eg.
+import multiprocessing import os def run_proc(name): print('Child process {0} PID:{1}'.format(name, os.getpid())) # os.getpid() 获取当前进程pid if __name__ == '__main__': print('Parent process {0} is Running'.format(os.getpid())) for i in range(5): p = multiprocessing.Process(target=run_proc, args=(str(i),)) print('process start') p.……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/python-db/">python 数据库实例</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年1月23日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                python 数据库交互 MySQL MySQL 的安装
+ sudo apt-get update sudo apt-get install -y mysql-server mysql-client  远程访问
+ sudo nano /etc/mysql/my.cnf 注释此行：bind-address = 127.0.0.1  启动、关闭和重启MySQL 服务的命令如下： - sudo service mysql start - sudo service mysql stop - sudo service mysql restart
+可视化工具 ：MySQL workbench
+import pymysql def my_db(host,user,passwd,db,sql,port=3306,charset='utf8'): coon = pymysql.connect(host=host, user=user, password=passwd, db=db, port=port, charset=charset, autocommit=True) cur = coon.cursor() #建立游标 sql=sql.strip() cur.execute(sql) #执行sql语句，但不会返回执行的结果 sql_start = sql[:6].lower()#取sql的开头,转成小写 if sql_start.……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/python-db/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">super()和__init__()</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年1月23日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                ##单继承时super()和init()实现的功能是类似的
+class Base(object): def __init__(self): print 'Base create' class childA(Base): def __init__(self): print 'creat A ', Base.__init__(self) class childB(Base): def __init__(self): print 'creat B ', super(childB, self).__init__() base = Base() a = childA() b = childB()  输出结果：
+Base create creat A Base create creat B Base create  区别是使用super()继承时不用显式引用基类。
+##super()只能用于新式类中
+把基类改为旧式类，即不继承任何基类
+class Base(): def __init__(self): print 'Base create'  执行时，在初始化b时就会报错：
+super(childB, self).__init__() TypeError: must be type, not classobj  ##super不是父类，而是继承顺序的下一个类 在多重继承时会涉及继承顺序，super（）相当于返回继承顺序的下一个类，而不是父类，类似于这样的功能：……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://wshoo.github.io/post/linkextractor/">scrapy 中的 LinkExtractor</a>
                                 </h1>
                             </header>
@@ -106,111 +211,6 @@ le = LinkExtractor(tags='img', attrs='src')  process_value 接收一个形如fun
                             </div>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">Multiprocessing 模块</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://wshoo.github.io/categories/python">python</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                众所周知，Python中的GIL限制了Python多线程并行对多核CPU的利用，但是我们仍然可以通过各种其他的方式来让Python真正利用多核资源, 例如通过C/C++扩展来实现多线程/多进程, 以及直接利用Python的多进程模块multiprocessing来进行多进程编程。
- 多进程 Multiprocessing 模块 Process 类 Process 类用来描述一个进程对象。创建子进程的时候，只需要传入一个执行函数和函数的参数即可完成 Process 示例的创建。
-multiprocessing.Process(group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None) # target -- 函数名 # args -- tuple形式参数   star() 启动进程 join() 进程同步，等待所有进程退出 close() 阻止多余的进程涌入进程池pool造成进程阻塞  eg.
-import multiprocessing import os def run_proc(name): print('Child process {0} PID:{1}'.format(name, os.getpid())) # os.getpid() 获取当前进程pid if __name__ == '__main__': print('Parent process {0} is Running'.format(os.getpid())) for i in range(5): p = multiprocessing.Process(target=run_proc, args=(str(i),)) print('process start') p.……
-                                <p class="readmore"><a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/python-db/">python 数据库实例</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://wshoo.github.io/categories/python">python</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                python 数据库交互 MySQL MySQL 的安装
- sudo apt-get update sudo apt-get install -y mysql-server mysql-client  远程访问
- sudo nano /etc/mysql/my.cnf 注释此行：bind-address = 127.0.0.1  启动、关闭和重启MySQL 服务的命令如下： - sudo service mysql start - sudo service mysql stop - sudo service mysql restart
-可视化工具 ：MySQL workbench
-import pymysql def my_db(host,user,passwd,db,sql,port=3306,charset='utf8'): coon = pymysql.connect(host=host, user=user, password=passwd, db=db, port=port, charset=charset, autocommit=True) cur = coon.cursor() #建立游标 sql=sql.strip() cur.execute(sql) #执行sql语句，但不会返回执行的结果 sql_start = sql[:6].lower()#取sql的开头,转成小写 if sql_start.……
-                                <p class="readmore"><a href="https://wshoo.github.io/post/python-db/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">super()和__init__()</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://wshoo.github.io/categories/python">python</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                ##单继承时super()和init()实现的功能是类似的
-class Base(object): def __init__(self): print 'Base create' class childA(Base): def __init__(self): print 'creat A ', Base.__init__(self) class childB(Base): def __init__(self): print 'creat B ', super(childB, self).__init__() base = Base() a = childA() b = childB()  输出结果：
-Base create creat A Base create creat B Base create  区别是使用super()继承时不用显式引用基类。
-##super()只能用于新式类中
-把基类改为旧式类，即不继承任何基类
-class Base(): def __init__(self): print 'Base create'  执行时，在初始化b时就会报错：
-super(childB, self).__init__() TypeError: must be type, not classobj  ##super不是父类，而是继承顺序的下一个类 在多重继承时会涉及继承顺序，super（）相当于返回继承顺序的下一个类，而不是父类，类似于这样的功能：……
-                                <p class="readmore"><a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/xlwings/">xlwings 模块</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://wshoo.github.io/categories/python">python</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                打开已保存的Excel文档 # 导入xlwings模块，打开Excel程序，默认设置：程序可见，只打开不新建工作薄，屏幕更新关闭 import xlwings as xw app=xw.App(visible=True,add_book=False) app.display_alerts=False app.screen_updating=False # 文件位置：filepath，打开test文档，然后保存，关闭，结束程序 filepath=r&rsquo;g:\Python Scripts\test.xlsx&rsquo; wb=app.books.open(filepath) wb.save() wb.close() app.quit() 新建Excel文档，命名为test.xlsx，并保存在D盘。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 在单元格输入值 新建test.xlsx，在sheet1的第一个单元格输入 “人生” ，然后保存关闭，退出Excel程序。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;人生&rsquo; wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 打开已保存的test.xlsx，在sheet2的第二个单元格输入“苦短”，然后保存关闭，退出Excel程序 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.open(r&rsquo;d:\test.xlsx&rsquo;) # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;苦短&rsquo; wb.save() wb.close() app.quit() 掌握以上代码，已经完全可以把Excel当作一个txt文本进行数据储存了，也可以读取Excel文件的数据，进行计算后，并将结果保存在Excel中。  引用工作簿、工作表和单元格  引用工作簿，注意工作簿应该首先被打开 wb.=xw.books[&lsquo;工作簿的名字‘] 引用活动工作簿 wb=xw.books.active 引用工作簿中的sheet sht=xw.books[&lsquo;工作簿的名字‘].sheets[&lsquo;sheet的名字&rsquo;] # 或者 wb=xw.……
-                                <p class="readmore"><a href="https://wshoo.github.io/post/xlwings/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
 
                     
 
@@ -236,19 +236,7 @@ super(childB, self).__init__() TypeError: must be type, not classobj  ##super不
 <ul class="widget-list">
     
     <li>
-        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+        <a href="https://wshoo.github.io/post/xlwings/" title="xlwings 模块">xlwings 模块</a>
     </li>
     
     <li>
@@ -260,11 +248,11 @@ super(childB, self).__init__() TypeError: must be type, not classobj  ##super不
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+        <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/" title="super()和__init__()">super()和__init__()</a>
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
     </li>
     
     <li>
@@ -272,7 +260,19 @@ super(childB, self).__init__() TypeError: must be type, not classobj  ##super不
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/" title="super()和__init__()">super()和__init__()</a>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
     </li>
     
 </ul>

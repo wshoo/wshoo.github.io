@@ -82,7 +82,7 @@
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                1年1月1日
+                                2019年1月13日
                             </date>
                             
                             <div class="post-meta meta-category">
@@ -105,34 +105,11 @@ DOWNLOADER_MIDDLEWARES = { #项目名称改成自己的 'pro_name.……
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/scrapy_workflow/">scrapy--proxy代理</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://wshoo.github.io/categories/scrapy">scrapy</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                 scrapy工作流程  Spiders(爬虫):它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器) Engine(引擎)：负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。 Scheduler(调度器)：它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。 Downloader(下载器)：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理 ItemPipeline(管道):它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方. Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。 Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）  ……
-                                <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_workflow/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
                                     <a href="https://wshoo.github.io/post/scrapy_login/">scrapy--模拟登陆</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                1年1月1日
+                                2019年1月13日
                             </date>
                             
                             <div class="post-meta meta-category">
@@ -149,6 +126,29 @@ _xsrf: fawfasdfgasdfgadsf email: 11@22.com password: 1123123 rememberme: y  其�
 scrapy模拟登陆 示例：
 def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot;, callback = self.post_login)] #重写了爬虫类的方法, 实现了自定义请求, 运行成功后会调用callback回调函数 #FormRequeset def post_login(self, response): print 'Preparing login' #下面这句话用于抓取请求网页后返回网页中的_xsrf字段的文字, 用于成功提交表单 xsrf = Selector(response).xpath('//input[@name=&quot;_xsrf&quot;]/@value').extract()[0] print xsrf #FormRequeset.from_response是Scrapy提供的一个函数, 用于post表单 #登陆成功后, 会调用after_login回调函数 return [FormRequest.from_response(response, formdata = { '_xsrf': xsrf, 'email': '123456', 'password': '123456' }, callback = self.……
                                 <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_login/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/scrapy_workflow/">scrapy--proxy代理</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年1月13日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/scrapy">scrapy</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                 scrapy工作流程  Spiders(爬虫):它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器) Engine(引擎)：负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。 Scheduler(调度器)：它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。 Downloader(下载器)：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理 ItemPipeline(管道):它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方. Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。 Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）  ……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_workflow/">阅读全文</a></p>
                             </div>
                         </article>
                     
@@ -177,19 +177,7 @@ def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot
 <ul class="widget-list">
     
     <li>
-        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+        <a href="https://wshoo.github.io/post/xlwings/" title="xlwings 模块">xlwings 模块</a>
     </li>
     
     <li>
@@ -201,11 +189,11 @@ def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+        <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/" title="super()和__init__()">super()和__init__()</a>
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
     </li>
     
     <li>
@@ -213,7 +201,19 @@ def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/" title="super()和__init__()">super()和__init__()</a>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
     </li>
     
 </ul>

@@ -78,11 +78,34 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/xlwings/">xlwings 模块</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年2月23日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                打开已保存的Excel文档 # 导入xlwings模块，打开Excel程序，默认设置：程序可见，只打开不新建工作薄，屏幕更新关闭 import xlwings as xw app=xw.App(visible=True,add_book=False) app.display_alerts=False app.screen_updating=False # 文件位置：filepath，打开test文档，然后保存，关闭，结束程序 filepath=r&rsquo;g:\Python Scripts\test.xlsx&rsquo; wb=app.books.open(filepath) wb.save() wb.close() app.quit() 新建Excel文档，命名为test.xlsx，并保存在D盘。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 在单元格输入值 新建test.xlsx，在sheet1的第一个单元格输入 “人生” ，然后保存关闭，退出Excel程序。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;人生&rsquo; wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 打开已保存的test.xlsx，在sheet2的第二个单元格输入“苦短”，然后保存关闭，退出Excel程序 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.open(r&rsquo;d:\test.xlsx&rsquo;) # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;苦短&rsquo; wb.save() wb.close() app.quit() 掌握以上代码，已经完全可以把Excel当作一个txt文本进行数据储存了，也可以读取Excel文件的数据，进行计算后，并将结果保存在Excel中。  引用工作簿、工作表和单元格  引用工作簿，注意工作簿应该首先被打开 wb.=xw.books[&lsquo;工作簿的名字‘] 引用活动工作簿 wb=xw.books.active 引用工作簿中的sheet sht=xw.books[&lsquo;工作簿的名字‘].sheets[&lsquo;sheet的名字&rsquo;] # 或者 wb=xw.……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/xlwings/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">Multiprocessing 模块</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                1年1月1日
+                                2019年1月23日
                             </date>
                             
                             <div class="post-meta meta-category">
@@ -108,7 +131,7 @@ import multiprocessing import os def run_proc(name): print('Child process {0} PI
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                1年1月1日
+                                2019年1月23日
                             </date>
                             
                             <div class="post-meta meta-category">
@@ -127,29 +150,6 @@ Base create creat A Base create creat B Base create  区别是使用super()继�
 class Base(): def __init__(self): print 'Base create'  执行时，在初始化b时就会报错：
 super(childB, self).__init__() TypeError: must be type, not classobj  ##super不是父类，而是继承顺序的下一个类 在多重继承时会涉及继承顺序，super（）相当于返回继承顺序的下一个类，而不是父类，类似于这样的功能：……
                                 <p class="readmore"><a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/xlwings/">xlwings 模块</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://wshoo.github.io/categories/python">python</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                打开已保存的Excel文档 # 导入xlwings模块，打开Excel程序，默认设置：程序可见，只打开不新建工作薄，屏幕更新关闭 import xlwings as xw app=xw.App(visible=True,add_book=False) app.display_alerts=False app.screen_updating=False # 文件位置：filepath，打开test文档，然后保存，关闭，结束程序 filepath=r&rsquo;g:\Python Scripts\test.xlsx&rsquo; wb=app.books.open(filepath) wb.save() wb.close() app.quit() 新建Excel文档，命名为test.xlsx，并保存在D盘。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 在单元格输入值 新建test.xlsx，在sheet1的第一个单元格输入 “人生” ，然后保存关闭，退出Excel程序。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;人生&rsquo; wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 打开已保存的test.xlsx，在sheet2的第二个单元格输入“苦短”，然后保存关闭，退出Excel程序 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.open(r&rsquo;d:\test.xlsx&rsquo;) # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;苦短&rsquo; wb.save() wb.close() app.quit() 掌握以上代码，已经完全可以把Excel当作一个txt文本进行数据储存了，也可以读取Excel文件的数据，进行计算后，并将结果保存在Excel中。  引用工作簿、工作表和单元格  引用工作簿，注意工作簿应该首先被打开 wb.=xw.books[&lsquo;工作簿的名字‘] 引用活动工作簿 wb=xw.books.active 引用工作簿中的sheet sht=xw.books[&lsquo;工作簿的名字‘].sheets[&lsquo;sheet的名字&rsquo;] # 或者 wb=xw.……
-                                <p class="readmore"><a href="https://wshoo.github.io/post/xlwings/">阅读全文</a></p>
                             </div>
                         </article>
                     
@@ -178,19 +178,7 @@ super(childB, self).__init__() TypeError: must be type, not classobj  ##super不
 <ul class="widget-list">
     
     <li>
-        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+        <a href="https://wshoo.github.io/post/xlwings/" title="xlwings 模块">xlwings 模块</a>
     </li>
     
     <li>
@@ -202,11 +190,11 @@ super(childB, self).__init__() TypeError: must be type, not classobj  ##super不
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+        <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/" title="super()和__init__()">super()和__init__()</a>
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
     </li>
     
     <li>
@@ -214,7 +202,19 @@ super(childB, self).__init__() TypeError: must be type, not classobj  ##super不
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/" title="super()和__init__()">super()和__init__()</a>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
     </li>
     
 </ul>

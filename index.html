@@ -87,6 +87,202 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/xlwings/" title="xlwings 模块" >xlwings 模块</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年2月23日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                打开已保存的Excel文档 # 导入xlwings模块，打开Excel程序，默认设置：程序可见，只打开不新建工作薄，屏幕更新关闭 import xlwings as xw app=xw.App(visible=True,add_book=False) app.display_alerts=False app.screen_updating=False # 文件位置：filepath，打开test文档，然后保存，关闭，结束程序 filepath=r&rsquo;g:\Python Scripts\test.xlsx&rsquo; wb=app.books.open(filepath) wb.save() wb.close() app.quit() 新建Excel文档，命名为test.xlsx，并保存在D盘。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 在单元格输入值 新建test.xlsx，在sheet1的第一个单元格输入 “人生” ，然后保存关闭，退出Excel程序。 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.add() # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;人生&rsquo; wb.save(r&rsquo;d:\test.xlsx&rsquo;) wb.close() app.quit() 打开已保存的test.xlsx，在sheet2的第二个单元格输入“苦短”，然后保存关闭，退出Excel程序 import xlwings as xw app=xw.App(visible=True,add_book=False) wb=app.books.open(r&rsquo;d:\test.xlsx&rsquo;) # wb就是新建的工作簿(workbook)，下面则对wb的sheet1的A1单元格赋值 wb.sheets[&lsquo;sheet1&rsquo;].range(&lsquo;A1&rsquo;).value=&lsquo;苦短&rsquo; wb.save() wb.close() app.quit() 掌握以上代码，已经完全可以把Excel当作一个txt文本进行数据储存了，也可以读取Excel文件的数据，进行计算后，并将结果保存在Excel中。  引用工作簿、工作表和单元格  引用工作簿，注意工作簿应该首先被打开 wb.=xw.books[&lsquo;工作簿的名字‘] 引用活动工作簿 wb=xw.books.active 引用工作簿中的sheet sht=xw.books[&lsquo;工作簿的名字‘].sheets[&lsquo;sheet的名字&rsquo;] # 或者 wb=xw.……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/xlwings/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块" >Multiprocessing 模块</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年1月23日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                众所周知，Python中的GIL限制了Python多线程并行对多核CPU的利用，但是我们仍然可以通过各种其他的方式来让Python真正利用多核资源, 例如通过C/C++扩展来实现多线程/多进程, 以及直接利用Python的多进程模块multiprocessing来进行多进程编程。
+ 多进程 Multiprocessing 模块 Process 类 Process 类用来描述一个进程对象。创建子进程的时候，只需要传入一个执行函数和函数的参数即可完成 Process 示例的创建。
+multiprocessing.Process(group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None) # target -- 函数名 # args -- tuple形式参数   star() 启动进程 join() 进程同步，等待所有进程退出 close() 阻止多余的进程涌入进程池pool造成进程阻塞  eg.
+import multiprocessing import os def run_proc(name): print('Child process {0} PID:{1}'.format(name, os.getpid())) # os.getpid() 获取当前进程pid if __name__ == '__main__': print('Parent process {0} is Running'.format(os.getpid())) for i in range(5): p = multiprocessing.Process(target=run_proc, args=(str(i),)) print('process start') p.……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例" >python 数据库实例</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年1月23日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                python 数据库交互 MySQL MySQL 的安装
+ sudo apt-get update sudo apt-get install -y mysql-server mysql-client  远程访问
+ sudo nano /etc/mysql/my.cnf 注释此行：bind-address = 127.0.0.1  启动、关闭和重启MySQL 服务的命令如下： - sudo service mysql start - sudo service mysql stop - sudo service mysql restart
+可视化工具 ：MySQL workbench
+import pymysql def my_db(host,user,passwd,db,sql,port=3306,charset='utf8'): coon = pymysql.connect(host=host, user=user, password=passwd, db=db, port=port, charset=charset, autocommit=True) cur = coon.cursor() #建立游标 sql=sql.strip() cur.execute(sql) #执行sql语句，但不会返回执行的结果 sql_start = sql[:6].lower()#取sql的开头,转成小写 if sql_start.……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/python-db/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/" title="super()和__init__()" >super()和__init__()</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年1月23日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                ##单继承时super()和init()实现的功能是类似的
+class Base(object): def __init__(self): print 'Base create' class childA(Base): def __init__(self): print 'creat A ', Base.__init__(self) class childB(Base): def __init__(self): print 'creat B ', super(childB, self).__init__() base = Base() a = childA() b = childB()  输出结果：
+Base create creat A Base create creat B Base create  区别是使用super()继承时不用显式引用基类。
+##super()只能用于新式类中
+把基类改为旧式类，即不继承任何基类
+class Base(): def __init__(self): print 'Base create'  执行时，在初始化b时就会报错：
+super(childB, self).__init__() TypeError: must be type, not classobj  ##super不是父类，而是继承顺序的下一个类 在多重继承时会涉及继承顺序，super（）相当于返回继承顺序的下一个类，而不是父类，类似于这样的功能：……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理" >scrapy--proxy代理</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年1月13日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/scrapy">scrapy</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                scrapy&ndash;proxy代理的设置 在构造的请求中添加meta属性： 示例：
+def start_requests(self): yield scrapy.FormRequest(url=self.start_urls[0], headers=self.header, formdata=self.data, callback=self.parse_page, meta={'proxy':'http://1.2.3.4:11'}, )  显然在有多个spider时这种方法不够灵活
+以中间件的形式添加 在middlewares.py中添加：
+import random, base64 class ProxyMiddleware(object): proxyList = ['36.250.69.4:80', '58.18.52.168:3128', '58.253.238.243:80', '60.191.164.22:3128', '60.191.167.93:3128'] def process_request(self, request, spider): # Set the location of the proxy pro_adr = random.choice(self.proxyList) print(&quot;USE PROXY -&gt; &quot;+pro_adr) request.meta['proxy'] = &quot;http://&quot;+ pro_adr '''这里用的免费代理,不用用户名密码的.如果有用户名和密码,还要加入以下代码 proxy_user_pass = &quot;USERNAME:PASSWORD&quot; encoded_user_pass = base64.encodestring(proxy_user_pass) request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass'''  settings.py:
+DOWNLOADER_MIDDLEWARES = { #项目名称改成自己的 'pro_name.……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_proxy/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/scrapy_login/" title="scrapy--模拟登陆" >scrapy--模拟登陆</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年1月13日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/scrapy">scrapy</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                scrapy&ndash;模拟登陆 cookie  HTTP是无状态的协议，为了保持连接状态，引入cookie机制。 cookie 是http消息头的一种属性， 包括： - cookie名字（name）cookie的值（value） - cookie的过期时间（Expires/Max-Age） - cookie作用路径（Path） - cookie所在的域名（Domian）,使用cookie进行安全连接（Secure） - cookie大小Size 其中前两个为必须条件
+ 表单 使用的Chrome自带的开发者工具中的Network功能，在登录界面输入错误的信息，得到Form Data，下面为知乎的登录信息:
+_xsrf: fawfasdfgasdfgadsf email: 11@22.com password: 1123123 rememberme: y  其中_xsrf是一种验证机制，可以从登录界面的源代码中找到。
+scrapy模拟登陆 示例：
+def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot;, callback = self.post_login)] #重写了爬虫类的方法, 实现了自定义请求, 运行成功后会调用callback回调函数 #FormRequeset def post_login(self, response): print 'Preparing login' #下面这句话用于抓取请求网页后返回网页中的_xsrf字段的文字, 用于成功提交表单 xsrf = Selector(response).xpath('//input[@name=&quot;_xsrf&quot;]/@value').extract()[0] print xsrf #FormRequeset.from_response是Scrapy提供的一个函数, 用于post表单 #登陆成功后, 会调用after_login回调函数 return [FormRequest.from_response(response, formdata = { '_xsrf': xsrf, 'email': '123456', 'password': '123456' }, callback = self.……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_login/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理" >scrapy--proxy代理</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年1月13日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/scrapy">scrapy</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                 scrapy工作流程  Spiders(爬虫):它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器) Engine(引擎)：负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。 Scheduler(调度器)：它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。 Downloader(下载器)：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理 ItemPipeline(管道):它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方. Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。 Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）  ……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_workflow/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor" >scrapy 中的 LinkExtractor</a>
                                 </h1>
                             </header>
@@ -142,236 +338,6 @@ use mysql; update user set authentication_string=PASSWORD(&quot;这里输入你�
                         </article>
                     
                     
-		    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法" >markdown 语法</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2018年10月19日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://wshoo.github.io/categories/tool">tool</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                关于Markdown Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式
-优点  简单标记符完成排版，所写即所见，让你专注于文字而不是排版 纯文本，所以兼容性极强，可以用所有文本编辑器打开
- 格式转换方便，Markdown文本可以轻松转换为 html、pdf等
- Markdown 的标记语法有极好的可读性  Markdown简单语法示例 段落和换行  一个段落由一个或多个连续的文本行组成，它的前后要有一 个以上的空行
- 通过在段位敲两个空格再回车实现换行
-标题 标题能显示出文章的结构。行首插入1-6个 # ，每增加一个 # 表示更深入层次的内容，对应到标题的深度由 1-6 阶
-# 这是H1
-## 这是H2
-### 这是H3
-...
-###### 这是H6
-列表 列表就是将内容分为几个小点通过在前面打一个‘-’，或者‘+’实现
- 1
- 2
- 3
-有序列表则用数字接着几个英文句点，作用在于：你可以将它们的顺序打乱，而输出时会按照顺序输出
-引用 在行首加‘&gt;’实现 例：
-&gt; 苟利国家生死以，岂因祸福避趋之 &mdash;林则徐
-  代码区块 通过 代码（键盘Esc键下方的符号）实现 例：
-print('Helloworld')
-分割线 通过连用三个以上‘×××’来实现
-强调 使用‘×’或‘—’将要强调的内容包围
-em
-** strong **
-插入图片和链接  一个惊叹号 ！ 接着一个方括号[],里面放图片的替代文字 接着一个普通括号（），里面放图片的网址……
-                            </div>
-                            <p class="readmore"><a href="https://wshoo.github.io/post/markdown/">阅读全文</a></p>
-                        </article>
-                    
-                    
-		    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/git/" title="git 基本使用" >git 基本使用</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2018年10月18日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://wshoo.github.io/categories/tool">tool</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                简介 git是世界上最先进的分布式版本控制系统
-- 集中式版本控制系统：版本库是集中存放在中央服务器，而干活的时候用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始工作，完成之后再推送到服务器。必须联网才能工作
-- 分布式版本控制系统：每个人的电脑上都有一个完整的版本库，这样工作的时候就不需要联网了
-安装git 环境：ubuntu16.04
-- 打开终端，运行
-sudo apt-get install git
-- 安装完成后，设置你的email和name
-git config --global user.name &quot;your name&quot;
-git config --global user.email &quot;your email&quot;
-git config --global color.ui true ＃使git带有颜色　 设置命令别名　  git config --global alias.co checkout
-git config --global alias.ci commit git config --global alias.br branch
-创建版本库 版本库（repository）:可以理解为一个目录，目录下所有的文件都可以被git管理起来，每个文件的修改删除，git都能追踪，或者在将来的某个时刻还原
-mkdir gitexample
-cd gitexample
-git init # 目录下多了.git文件夹
-添加文件到版本库  将文件放在gitexample目录下
- 运行git add filename # 添加到缓存区(可多次运行) 运行git commit -m &quot;&quot; # -m后是本次提交的说明……
-                            </div>
-                            <p class="readmore"><a href="https://wshoo.github.io/post/git/">阅读全文</a></p>
-                        </article>
-                    
-                    
-		    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/" title="Multiprocessing 模块" >Multiprocessing 模块</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                众所周知，Python中的GIL限制了Python多线程并行对多核CPU的利用，但是我们仍然可以通过各种其他的方式来让Python真正利用多核资源, 例如通过C/C++扩展来实现多线程/多进程, 以及直接利用Python的多进程模块multiprocessing来进行多进程编程。
- 多进程 Multiprocessing 模块 Process 类 Process 类用来描述一个进程对象。创建子进程的时候，只需要传入一个执行函数和函数的参数即可完成 Process 示例的创建。
-multiprocessing.Process(group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None) # target -- 函数名 # args -- tuple形式参数   star() 启动进程 join() 进程同步，等待所有进程退出 close() 阻止多余的进程涌入进程池pool造成进程阻塞  eg.
-import multiprocessing import os def run_proc(name): print('Child process {0} PID:{1}'.format(name, os.getpid())) # os.getpid() 获取当前进程pid if __name__ == '__main__': print('Parent process {0} is Running'.format(os.getpid())) for i in range(5): p = multiprocessing.Process(target=run_proc, args=(str(i),)) print('process start') p.……
-                            </div>
-                            <p class="readmore"><a href="https://wshoo.github.io/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">阅读全文</a></p>
-                        </article>
-                    
-                    
-		    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/python-db/" title="python 数据库实例" >python 数据库实例</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                python 数据库交互 MySQL MySQL 的安装
- sudo apt-get update sudo apt-get install -y mysql-server mysql-client  远程访问
- sudo nano /etc/mysql/my.cnf 注释此行：bind-address = 127.0.0.1  启动、关闭和重启MySQL 服务的命令如下： - sudo service mysql start - sudo service mysql stop - sudo service mysql restart
-可视化工具 ：MySQL workbench
-import pymysql def my_db(host,user,passwd,db,sql,port=3306,charset='utf8'): coon = pymysql.connect(host=host, user=user, password=passwd, db=db, port=port, charset=charset, autocommit=True) cur = coon.cursor() #建立游标 sql=sql.strip() cur.execute(sql) #执行sql语句，但不会返回执行的结果 sql_start = sql[:6].lower()#取sql的开头,转成小写 if sql_start.……
-                            </div>
-                            <p class="readmore"><a href="https://wshoo.github.io/post/python-db/">阅读全文</a></p>
-                        </article>
-                    
-                    
-		    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理" >scrapy--proxy代理</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://wshoo.github.io/categories/scrapy">scrapy</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                scrapy&ndash;proxy代理的设置 在构造的请求中添加meta属性： 示例：
-def start_requests(self): yield scrapy.FormRequest(url=self.start_urls[0], headers=self.header, formdata=self.data, callback=self.parse_page, meta={'proxy':'http://1.2.3.4:11'}, )  显然在有多个spider时这种方法不够灵活
-以中间件的形式添加 在middlewares.py中添加：
-import random, base64 class ProxyMiddleware(object): proxyList = ['36.250.69.4:80', '58.18.52.168:3128', '58.253.238.243:80', '60.191.164.22:3128', '60.191.167.93:3128'] def process_request(self, request, spider): # Set the location of the proxy pro_adr = random.choice(self.proxyList) print(&quot;USE PROXY -&gt; &quot;+pro_adr) request.meta['proxy'] = &quot;http://&quot;+ pro_adr '''这里用的免费代理,不用用户名密码的.如果有用户名和密码,还要加入以下代码 proxy_user_pass = &quot;USERNAME:PASSWORD&quot; encoded_user_pass = base64.encodestring(proxy_user_pass) request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass'''  settings.py:
-DOWNLOADER_MIDDLEWARES = { #项目名称改成自己的 'pro_name.……
-                            </div>
-                            <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_proxy/">阅读全文</a></p>
-                        </article>
-                    
-                    
-		    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理" >scrapy--proxy代理</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://wshoo.github.io/categories/scrapy">scrapy</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                 scrapy工作流程  Spiders(爬虫):它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器) Engine(引擎)：负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。 Scheduler(调度器)：它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。 Downloader(下载器)：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理 ItemPipeline(管道):它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方. Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。 Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）  ……
-                            </div>
-                            <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_workflow/">阅读全文</a></p>
-                        </article>
-                    
-                    
-		    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/scrapy_login/" title="scrapy--模拟登陆" >scrapy--模拟登陆</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1年1月1日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://wshoo.github.io/categories/scrapy">scrapy</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                scrapy&ndash;模拟登陆 cookie  HTTP是无状态的协议，为了保持连接状态，引入cookie机制。 cookie 是http消息头的一种属性， 包括： - cookie名字（name）cookie的值（value） - cookie的过期时间（Expires/Max-Age） - cookie作用路径（Path） - cookie所在的域名（Domian）,使用cookie进行安全连接（Secure） - cookie大小Size 其中前两个为必须条件
- 表单 使用的Chrome自带的开发者工具中的Network功能，在登录界面输入错误的信息，得到Form Data，下面为知乎的登录信息:
-_xsrf: fawfasdfgasdfgadsf email: 11@22.com password: 1123123 rememberme: y  其中_xsrf是一种验证机制，可以从登录界面的源代码中找到。
-scrapy模拟登陆 示例：
-def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot;, callback = self.post_login)] #重写了爬虫类的方法, 实现了自定义请求, 运行成功后会调用callback回调函数 #FormRequeset def post_login(self, response): print 'Preparing login' #下面这句话用于抓取请求网页后返回网页中的_xsrf字段的文字, 用于成功提交表单 xsrf = Selector(response).xpath('//input[@name=&quot;_xsrf&quot;]/@value').extract()[0] print xsrf #FormRequeset.from_response是Scrapy提供的一个函数, 用于post表单 #登陆成功后, 会调用after_login回调函数 return [FormRequest.from_response(response, formdata = { '_xsrf': xsrf, 'email': '123456', 'password': '123456' }, callback = self.……
-                            </div>
-                            <p class="readmore"><a href="https://wshoo.github.io/post/scrapy_login/">阅读全文</a></p>
-                        </article>
-                    
-                    
                     
 
 
@@ -416,19 +382,7 @@ def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot
 <ul class="widget-list">
     
     <li>
-        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
-    </li>
-    
-    <li>
-        <a href="https://wshoo.github.io/post/git/" title="git 基本使用">git 基本使用</a>
+        <a href="https://wshoo.github.io/post/xlwings/" title="xlwings 模块">xlwings 模块</a>
     </li>
     
     <li>
@@ -440,11 +394,11 @@ def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+        <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/" title="super()和__init__()">super()和__init__()</a>
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+        <a href="https://wshoo.github.io/post/scrapy_proxy/" title="scrapy--proxy代理">scrapy--proxy代理</a>
     </li>
     
     <li>
@@ -452,7 +406,19 @@ def start_requests(self): return [Request(&quot;https://www.zhihu.com/login&quot
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/" title="super()和__init__()">super()和__init__()</a>
+        <a href="https://wshoo.github.io/post/scrapy_workflow/" title="scrapy--proxy代理">scrapy--proxy代理</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/linkextractor/" title="scrapy 中的 LinkExtractor">scrapy 中的 LinkExtractor</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
+    </li>
+    
+    <li>
+        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
     </li>
     
 </ul>
