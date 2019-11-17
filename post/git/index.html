@@ -94,17 +94,26 @@
 
 <h2 id="简介">简介</h2>
 
-<p>git是世界上最先进的分布式版本控制系统<br />
-- 集中式版本控制系统：版本库是集中存放在中央服务器，而干活的时候用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始工作，完成之后再推送到服务器。必须联网才能工作<br />
-- 分布式版本控制系统：每个人的电脑上都有一个完整的版本库，这样工作的时候就不需要联网了</p>
+<p>git是世界上最先进的分布式版本控制系统</p>
+
+<ul>
+<li>集中式版本控制系统：版本库是集中存放在中央服务器，而干活的时候用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始工作，完成之后再推送到服务器。必须联网才能工作<br /></li>
+<li>分布式版本控制系统：每个人的电脑上都有一个完整的版本库，这样工作的时候就不需要联网了<br /></li>
+</ul>
 
 <h2 id="安装git">安装git</h2>
 
-<p>环境：ubuntu16.04<br />
-- 打开终端，运行</p>
+<p>环境：ubuntu16.04</p>
 
-<p><code>sudo apt-get install git</code><br />
-- 安装完成后，设置你的email和name</p>
+<ul>
+<li>打开终端，运行<br /></li>
+</ul>
+
+<p><code>sudo apt-get install git</code></p>
+
+<ul>
+<li>安装完成后，设置你的email和name<br /></li>
+</ul>
 
 <p><code>git config --global user.name &quot;your name&quot;</code><br />
 <code>git config --global user.email &quot;your email&quot;</code><br />
@@ -140,11 +149,13 @@
 
 <h2 id="版本回退">版本回退</h2>
 
-<p><code>git log</code>,查看提交日志<br />
-<code>git reflog</code>,查看每次命令
-在git中，用HEAD表示当前版本，上一个版本就是HEAD^,上上个版本就是HEAD^^,以此类推，数目多时 ，可用HEAD~次数。<br />
-<code>git reset --hard HEAD^</code>  或 <code>git reset --hard commitID</code> <code>git checkout -- filename #让文件回到最近依次add或commit时的状态</code><br />
-<code>git rm filename #删除文件</code></p>
+<ul>
+<li><code>git log</code>,查看提交日志<br /></li>
+<li><code>git reflog</code>,查看每次命令
+在git中，用HEAD表示当前版本，上一个版本就是HEAD^,上上个版本就是HEAD^^,以此类推，数目多时 ，可用HEAD~次数。<br /></li>
+<li><code>git reset --hard HEAD^</code>  或 <code>git reset --hard commitID</code> <code>git checkout -- filename #让文件回到最近依次add或commit时的状态</code><br /></li>
+<li><code>git rm filename #删除文件</code><br /></li>
+</ul>
 
 <h2 id="远程仓库">远程仓库</h2>
 

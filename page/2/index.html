@@ -134,22 +134,20 @@ em
                             
                             <div class="post-content">
                                 简介 git是世界上最先进的分布式版本控制系统
-- 集中式版本控制系统：版本库是集中存放在中央服务器，而干活的时候用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始工作，完成之后再推送到服务器。必须联网才能工作
-- 分布式版本控制系统：每个人的电脑上都有一个完整的版本库，这样工作的时候就不需要联网了
-安装git 环境：ubuntu16.04
-- 打开终端，运行
-sudo apt-get install git
-- 安装完成后，设置你的email和name
-git config --global user.name &quot;your name&quot;
+ 集中式版本控制系统：版本库是集中存放在中央服务器，而干活的时候用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始工作，完成之后再推送到服务器。必须联网才能工作
+ 分布式版本控制系统：每个人的电脑上都有一个完整的版本库，这样工作的时候就不需要联网了
+  安装git 环境：ubuntu16.04
+ 打开终端，运行
+  sudo apt-get install git
+ 安装完成后，设置你的email和name
+  git config --global user.name &quot;your name&quot;
 git config --global user.email &quot;your email&quot;
 git config --global color.ui true ＃使git带有颜色　 设置命令别名　  git config --global alias.co checkout
 git config --global alias.ci commit git config --global alias.br branch
 创建版本库 版本库（repository）:可以理解为一个目录，目录下所有的文件都可以被git管理起来，每个文件的修改删除，git都能追踪，或者在将来的某个时刻还原
 mkdir gitexample
 cd gitexample
-git init # 目录下多了.git文件夹
-添加文件到版本库  将文件放在gitexample目录下
- 运行git add filename # 添加到缓存区(可多次运行) 运行git commit -m &quot;&quot; # -m后是本次提交的说明……
+git init # 目录下多了.git文件夹……
                             </div>
                             <p class="readmore"><a href="https://wshoo.github.io/post/git/">阅读全文</a></p>
                         </article>
