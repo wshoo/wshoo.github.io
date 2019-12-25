@@ -102,9 +102,9 @@
                             </div>
                             
                             <div class="post-content">
-                                jieba分词 &rdquo;&rsquo; import re import jieba import collections
-class JiebaWords(object): def init(self, name): &ldquo;&rdquo;&rdquo; :param name: 文本名字或路径 &ldquo;&rdquo;&rdquo; self.text_name = name
-def get_text(self): &quot;&quot;&quot; 获取文本并进行相关处理 :return: 返回文本内容 &quot;&quot;&quot; txt = open(self.text_name, &quot;r&quot;, encoding=&quot;utf-8&quot;).read() return txt def split_txt(self): &quot;&quot;&quot; 对文本进行分词 :return: 返回分词后的列表 &quot;&quot;&quot; mytxt = self.get_text() words = jieba.lcut(mytxt) return words def count(self): &quot;&quot;&quot; 统计单词出现的次数并输出结果 &quot;&quot;&quot; words = self.split_txt() remove_words = [&quot;那么&quot;, &quot;这么&quot;] words = [w for w in words if len(w)&gt;1 and not re.……
+                                jieba分词 &rdquo;&ldquo;&rdquo; import re import jieba import collections
+class JiebaWords(object): def init(self, name): &ldquo;&rsquo; :param name: 文本名字或路径 &ldquo;&rsquo; self.text_name = name
+def get_text(self): ''' 获取文本并进行相关处理 :return: 返回文本内容 ''' txt = open(self.text_name, &quot;r&quot;, encoding=&quot;utf-8&quot;).read() return txt def split_txt(self): ''' 对文本进行分词 :return: 返回分词后的列表 ''' mytxt = self.get_text() words = jieba.lcut(mytxt) return words def count(self): ''' 统计单词出现的次数并输出结果 ''' words = self.split_txt() remove_words = [&quot;那么&quot;, &quot;这么&quot;] words = [w for w in words if len(w)&gt;1 and not re.……
                             </div>
                             <p class="readmore"><a href="https://wshoo.github.io/post/jieba_wordcloud/">阅读全文</a></p>
                         </article>

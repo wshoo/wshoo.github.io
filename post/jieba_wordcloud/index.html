@@ -94,39 +94,39 @@
 
 <h2 id="jieba分词">jieba分词</h2>
 
-<p>&rdquo;&rsquo;
+<p>&rdquo;&ldquo;&rdquo;
 import re
 import jieba
 import collections</p>
 
 <p>class JiebaWords(object):
     def <strong>init</strong>(self, name):
-        &ldquo;&rdquo;&rdquo;
+        &ldquo;&rsquo;
         :param name: 文本名字或路径
-        &ldquo;&rdquo;&rdquo;
+        &ldquo;&rsquo;
         self.text_name = name</p>
 
 <pre><code>def get_text(self):
-    &quot;&quot;&quot;
+    '''
     获取文本并进行相关处理
     :return: 返回文本内容
-    &quot;&quot;&quot;
+    '''
     txt = open(self.text_name, &quot;r&quot;, encoding=&quot;utf-8&quot;).read()
     return txt
 
 def split_txt(self):
-    &quot;&quot;&quot;
+    '''
     对文本进行分词
     :return: 返回分词后的列表
-    &quot;&quot;&quot;
+    '''
     mytxt = self.get_text()
     words = jieba.lcut(mytxt)
     return words
 
 def count(self):
-    &quot;&quot;&quot;
+    '''
     统计单词出现的次数并输出结果
-    &quot;&quot;&quot;
+    '''
     words = self.split_txt()
     remove_words = [&quot;那么&quot;, &quot;这么&quot;]
     words = [w for w in words if len(w)&gt;1 and not re.match('^[a-z|A-Z|0-9|.]*$',w) and not in remove_words]
@@ -142,24 +142,24 @@ def count(self):
 s.count()
 </code></pre>
 
-<p>&rdquo;&rsquo;</p>
+<p>&rdquo;&ldquo;&rdquo;</p>
 
 <h2 id="wordcloud-词云制作">wordcloud 词云制作</h2>
 
-<p>&rdquo;&rsquo;
+<p>&rdquo;&ldquo;&rdquo;
 import jieba
 import wordcloud
 import imageio</p>
 
 <p>def make_cloud_png(input_file, output_file, png_file, **kwargs):
-    &ldquo;&rdquo;&rdquo;
+    &ldquo;&rsquo;
     用特殊图形制作词云的通用代码
     :param input_file: 输入文本的路径或名字
     :param output_file: 输出图片的路径或名字
     :param png_file:  设置词云的图片形状的文件路径或名字
     :param kwargs: WordCloud的参数(width、height、background_color、font_path、max_words)
     :return:
-    &ldquo;&rdquo;&rdquo;
+    &ldquo;&rsquo;
     width = kwargs.get(&ldquo;width&rdquo;)
     height = kwargs.get(&ldquo;height&rdquo;)
     background_color = kwargs.get(&ldquo;background_color&rdquo;)
@@ -184,7 +184,7 @@ w.generate(txt)
 w.to_file(output_file)
 </code></pre>
 
-<p>&rdquo;&rsquo;</p>
+<p>&rdquo;&ldquo;&rdquo;</p>
 
                         </div>
 
