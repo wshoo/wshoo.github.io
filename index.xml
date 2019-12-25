@@ -26,7 +26,7 @@
       <pubDate>Sat, 23 Feb 2019 06:18:30 +0800</pubDate>
       
       <guid>https://wshoo.github.io/post/jieba_wordcloud/</guid>
-      <description>jieba分词 import re import jieba import collections class JiebaWords(object): def __init__(self, name): # :param name: 文本名字或路径 self.text_name = name def get_text(self): # 获取文本并进行相关处理 # :return: 返回文本内容 txt = open(self.text_name, &amp;quot;r&amp;quot;, encoding=&amp;quot;utf-8&amp;quot;).read() return txt def split_txt(self): # 对文本进行分词 # :return: 返回分词后的列表 mytxt = self.get_text() words = jieba.lcut(mytxt) return words def count(self): # 统计单词出现的次数并输出结果 words = self.split_txt() remove_words = [&amp;quot;那么&amp;quot;, &amp;quot;这么&amp;quot;] words = [w for w in words if len(w)&amp;gt;1 and not re.</description>
+      <description>jieba分词与wordcloud 词云制作 import re import jieba import collections class JiebaWords(object): def __init__(self, name): # :param name: 文本名字或路径 self.text_name = name def get_text(self): # 获取文本并进行相关处理 # :return: 返回文本内容 txt = open(self.text_name, &amp;quot;r&amp;quot;, encoding=&amp;quot;utf-8&amp;quot;).read() return txt def split_txt(self): # 对文本进行分词 # :return: 返回分词后的列表 mytxt = self.get_text() words = jieba.lcut(mytxt) return words def count(self): # 统计单词出现的次数并输出结果 words = self.split_txt() remove_words = [&amp;quot;那么&amp;quot;, &amp;quot;这么&amp;quot;] words = [w for w in words if len(w)&amp;gt;1 and not re.</description>
     </item>
     
     <item>
