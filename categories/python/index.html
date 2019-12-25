@@ -78,6 +78,31 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/jieba_wordcloud/">jieba分词与wordcloud词云制作</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年2月23日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://wshoo.github.io/categories/python">python</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                jieba分词 &rdquo;&rsquo; import re import jieba import collections
+class JiebaWords(object): def init(self, name): &ldquo;&rdquo;&rdquo; :param name: 文本名字或路径 &ldquo;&rdquo;&rdquo; self.text_name = name
+def get_text(self): &quot;&quot;&quot; 获取文本并进行相关处理 :return: 返回文本内容 &quot;&quot;&quot; txt = open(self.text_name, &quot;r&quot;, encoding=&quot;utf-8&quot;).read() return txt def split_txt(self): &quot;&quot;&quot; 对文本进行分词 :return: 返回分词后的列表 &quot;&quot;&quot; mytxt = self.get_text() words = jieba.lcut(mytxt) return words def count(self): &quot;&quot;&quot; 统计单词出现的次数并输出结果 &quot;&quot;&quot; words = self.split_txt() remove_words = [&quot;那么&quot;, &quot;这么&quot;] words = [w for w in words if len(w)&gt;1 and not re.……
+                                <p class="readmore"><a href="https://wshoo.github.io/post/jieba_wordcloud/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://wshoo.github.io/post/xlwings/">xlwings 模块</a>
                                 </h1>
                             </header>
@@ -236,6 +261,10 @@ le = LinkExtractor(tags='img', attrs='src')  process_value 接收一个形如fun
 <ul class="widget-list">
     
     <li>
+        <a href="https://wshoo.github.io/post/jieba_wordcloud/" title="jieba分词与wordcloud词云制作">jieba分词与wordcloud词云制作</a>
+    </li>
+    
+    <li>
         <a href="https://wshoo.github.io/post/xlwings/" title="xlwings 模块">xlwings 模块</a>
     </li>
     
@@ -271,10 +300,6 @@ le = LinkExtractor(tags='img', attrs='src')  process_value 接收一个形如fun
         <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
     </li>
     
-    <li>
-        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -289,7 +314,7 @@ le = LinkExtractor(tags='img', attrs='src')  process_value 接收一个形如fun
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+        <a href="https://wshoo.github.io/categories/python/">python(6)</a>
     </li>
     
     <li>

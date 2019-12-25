@@ -18,17 +18,22 @@
   </url>
   
   <url>
+    <loc>https://wshoo.github.io/post/jieba_wordcloud/</loc>
+    <lastmod>2019-02-23T06:18:30+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wshoo.github.io/post/</loc>
     <lastmod>2019-02-23T06:18:30+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wshoo.github.io/tags/python/</loc>
+    <loc>https://wshoo.github.io/categories/python/</loc>
     <lastmod>2019-02-23T06:18:30+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wshoo.github.io/categories/python/</loc>
+    <loc>https://wshoo.github.io/tags/python/</loc>
     <lastmod>2019-02-23T06:18:30+08:00</lastmod>
   </url>
   
@@ -63,12 +68,12 @@
   </url>
   
   <url>
-    <loc>https://wshoo.github.io/tags/scrapy/</loc>
+    <loc>https://wshoo.github.io/categories/scrapy/</loc>
     <lastmod>2019-01-13T06:18:30+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wshoo.github.io/categories/scrapy/</loc>
+    <loc>https://wshoo.github.io/tags/scrapy/</loc>
     <lastmod>2019-01-13T06:18:30+08:00</lastmod>
   </url>
   

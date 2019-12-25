@@ -87,6 +87,33 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/jieba_wordcloud/" title="jieba分词与wordcloud词云制作" >jieba分词与wordcloud词云制作</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年2月23日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/python">python</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                jieba分词 &rdquo;&rsquo; import re import jieba import collections
+class JiebaWords(object): def init(self, name): &ldquo;&rdquo;&rdquo; :param name: 文本名字或路径 &ldquo;&rdquo;&rdquo; self.text_name = name
+def get_text(self): &quot;&quot;&quot; 获取文本并进行相关处理 :return: 返回文本内容 &quot;&quot;&quot; txt = open(self.text_name, &quot;r&quot;, encoding=&quot;utf-8&quot;).read() return txt def split_txt(self): &quot;&quot;&quot; 对文本进行分词 :return: 返回分词后的列表 &quot;&quot;&quot; mytxt = self.get_text() words = jieba.lcut(mytxt) return words def count(self): &quot;&quot;&quot; 统计单词出现的次数并输出结果 &quot;&quot;&quot; words = self.split_txt() remove_words = [&quot;那么&quot;, &quot;这么&quot;] words = [w for w in words if len(w)&gt;1 and not re.……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/jieba_wordcloud/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://wshoo.github.io/post/xlwings/" title="xlwings 模块" >xlwings 模块</a>
                                 </h1>
                             </header>
@@ -312,32 +339,6 @@ le = LinkExtractor(tags='img', attrs='src')  process_value 接收一个形如fun
                         </article>
                     
                     
-		    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句" >MySQL 常用语句</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2018年10月28日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://wshoo.github.io/categories/database">database</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                MySQL：众多关系型数据库中的一种 修改mysql默认密码 使用 sudo mysql -u root -p 登录，密码为空
-use mysql; update user set authentication_string=PASSWORD(&quot;这里输入你要改的密码&quot;) where User='root'; #更改密码 update user set plugin=&quot;mysql_native_password&quot;; #如果没这一行可能也会报一个错误，因此需要运行这一行 flush privileges; #更新所有操作权限 quit;  数据库操作：  进入mysql 命令行: mysql -uroot -p 查看所有数据库: show databases; 创建数据库： create database niu charset utf8; 删除数据库： drop database niu; 选择数据库： use databases; 查看所有表： show tables; 查看创建数据库的语句：show create database databasename; 查看创建表的语句：show create table tablename; 查看表结构：desc tablename;  表操作： 约束  自增长 auto_increment 非空 not null 默认值 default &lsquo;xx&rsquo; 唯一 unique 指定字符集 charset 主键 primary key 外键 增加两个表之间的联系  增：  学生表……
-                            </div>
-                            <p class="readmore"><a href="https://wshoo.github.io/post/mysql/">阅读全文</a></p>
-                        </article>
-                    
-                    
                     
 
 
@@ -382,6 +383,10 @@ use mysql; update user set authentication_string=PASSWORD(&quot;这里输入你�
 <ul class="widget-list">
     
     <li>
+        <a href="https://wshoo.github.io/post/jieba_wordcloud/" title="jieba分词与wordcloud词云制作">jieba分词与wordcloud词云制作</a>
+    </li>
+    
+    <li>
         <a href="https://wshoo.github.io/post/xlwings/" title="xlwings 模块">xlwings 模块</a>
     </li>
     
@@ -417,10 +422,6 @@ use mysql; update user set authentication_string=PASSWORD(&quot;这里输入你�
         <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
     </li>
     
-    <li>
-        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -435,7 +436,7 @@ use mysql; update user set authentication_string=PASSWORD(&quot;这里输入你�
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+        <a href="https://wshoo.github.io/categories/python/">python(6)</a>
     </li>
     
     <li>

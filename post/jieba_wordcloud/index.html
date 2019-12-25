@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>scrapy 中的 LinkExtractor | wshoo的博客</title>
-    <meta property="og:title" content="scrapy 中的 LinkExtractor - wshoo的博客">
+    <title>jieba分词与wordcloud词云制作 | wshoo的博客</title>
+    <meta property="og:title" content="jieba分词与wordcloud词云制作 - wshoo的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2018-11-18T06:18:30&#43;08:00">
+    <meta property="article:published_time" content="2019-02-23T06:18:30&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2018-11-18T06:18:30&#43;08:00">
+    <meta property="article:modified_time" content="2019-02-23T06:18:30&#43;08:00">
         
     <meta name="Keywords" content="python,数据分析,博客,电影,vlog">
-    <meta name="description" content="scrapy 中的 LinkExtractor">
+    <meta name="description" content="jieba分词与wordcloud词云制作">
         
     <meta name="author" content="wshoo">
-    <meta property="og:url" content="https://wshoo.github.io/post/linkextractor/">
+    <meta property="og:url" content="https://wshoo.github.io/post/jieba_wordcloud/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,10 +74,10 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">scrapy 中的 LinkExtractor</h1>
+                            <h1 class="post-title">jieba分词与wordcloud词云制作</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2018年11月18日
+                            2019年2月23日
                         </date>
                         
                         <div class="post-meta">
@@ -92,111 +92,99 @@
                         <div class="post-content">
                             
 
-<h1 id="linkextractor">LinkExtractor</h1>
+<h2 id="jieba分词">jieba分词</h2>
 
-<h2 id="作用">作用</h2>
+<p>&rdquo;&rsquo;
+import re
+import jieba
+import collections</p>
 
-<p>提取链接</p>
+<p>class JiebaWords(object):
+    def <strong>init</strong>(self, name):
+        &ldquo;&rdquo;&rdquo;
+        :param name: 文本名字或路径
+        &ldquo;&rdquo;&rdquo;
+        self.text_name = name</p>
 
-<h2 id="用法实例">用法实例</h2>
+<pre><code>def get_text(self):
+    &quot;&quot;&quot;
+    获取文本并进行相关处理
+    :return: 返回文本内容
+    &quot;&quot;&quot;
+    txt = open(self.text_name, &quot;r&quot;, encoding=&quot;utf-8&quot;).read()
+    return txt
 
-<pre><code>from scrapy.linkextractors import LinkExtractor
+def split_txt(self):
+    &quot;&quot;&quot;
+    对文本进行分词
+    :return: 返回分词后的列表
+    &quot;&quot;&quot;
+    mytxt = self.get_text()
+    words = jieba.lcut(mytxt)
+    return words
 
-def parse(self, response):
-	le = LinkExtractor(resttrict_xpath='//ul')
-	links = le.extract_links(response)
-	if links:
-		next_url = link[0].url
-		yiled scrapy.Request(next_url, callback=self.parse)
+def count(self):
+    &quot;&quot;&quot;
+    统计单词出现的次数并输出结果
+    &quot;&quot;&quot;
+    words = self.split_txt()
+    remove_words = [&quot;那么&quot;, &quot;这么&quot;]
+    words = [w for w in words if len(w)&gt;1 and not re.match('^[a-z|A-Z|0-9|.]*$',w) and not in remove_words]
+    word_counts = collections.Counter(words)
+    word_counts_top10 = word_counts.most_common(10)
+    print(word_counts_top10) # 打印出现最多的10的词
+    # &quot; &quot;.join(words) # 换成字符串格式，用于制作词云
 </code></pre>
 
-<h2 id="linkextractor参数">LinkExtractor参数</h2>
+<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&lsquo;:</p>
 
-<ul>
-<li>allow 接收一个正则表达式或正则式列表</li>
-
-<li><p>deny 与allow相反</p>
-
-<pre><code>pattern = '/intro/.+\.html$'
-le = LinkExtractor(allow=pattern)
-</code></pre></li>
-
-<li><p>allow_domains 接收一个域名或一个域名列表</p></li>
-
-<li><p>deny_domains 与allow_domains相反</p>
-
-<pre><code>domains = ['github.com', 'google.com']
-le = LinkExtractor(allow_domains=domains)
-</code></pre></li>
-
-<li><p>restrict_xpaths 接收一个XPath表达式或一个XPath表达式列表</p></li>
-
-<li><p>restrict_css 接收一个CSS选择器或一个CSS选择器列表</p>
-
-<pre><code>le = LinkExtractor(restrict_xpaths='//div[@id=&quot;top&quot;]')
-</code></pre></li>
-
-<li><p>tags 接收一个标签（字符串）或一个标签列表</p></li>
-
-<li><p>attrs 接收一个属性（字符串）或一个属性列表</p>
-
-<pre><code>le = LinkExtractor(tags='img', attrs='src')
-</code></pre></li>
-
-<li><p>process_value
-接收一个形如func(value)的回调函数。如果传递了该参数，LinkExtractor将调用该回调函数对提取的每一个链接（如a的href）进行处理，
-回调函数正常情况下应返回一个字符串（处理结果），想要抛弃所处理的链接时，返回None。</p>
-
-<pre><code>import re
-
-def process(value):
-	m = re.search(&quot;javascript:goToPage\('(.*?)'&quot;, value)
-	if m:
-		value = m.group(1)
-	return value
-	
-le = LinkExtractor(process_value=process)
-</code></pre></li>
-</ul>
-
-<h1 id="rules">rules</h1>
-
-<p>使用场景，一般用于全站爬取。</p>
-
-<p>要点：
-- spider继承CrawlSpider(spiders的子类)
-- 参数：
-    - deny
-    - allow
-    - follow  True/False 是否以start_urls开头的url
-    - restrict_xpaths/css 与allow一起使用
-    - callback 回调处理的函数</p>
-
-<p>示例</p>
-
-<pre><code>from whole_website.items import DoubanSpider_Book
-from scrapy.spiders.crawl import Rule, CrawlSpider
-from scrapy.linkextractors import LinkExtractor
- 
- 
-class DoubanSpider(CrawlSpider):
-    name = &quot;douban&quot;
-    allowed_domains = [&quot;book.douban.com&quot;]
-    start_urls = ['https://book.douban.com/']
- 
-    rules = [
-        Rule(LinkExtractor(allow='subject/\d+'),callback='parse_items)
-    ]
- 
-    def parse_items(self, response):
-        items = DoubanSpider_Book()
-        items['name'] = response.xpath('//*[@id=&quot;wrapper&quot;]/h1/span/text()').extract_first()
-        items['author'] = response.xpath('//*[@id=&quot;info&quot;]//a/text()').extract()
-        data = {'book_name':items['name'],
-                'book_author':items['author']
-                }
-        print(data)
+<pre><code>s = JiebaWords(mytxt)
+s.count()
 </code></pre>
+
+<p>&rdquo;&rsquo;</p>
+
+<h2 id="wordcloud-词云制作">wordcloud 词云制作</h2>
+
+<p>&rdquo;&rsquo;
+import jieba
+import wordcloud
+import imageio</p>
+
+<p>def make_cloud_png(input_file, output_file, png_file, **kwargs):
+    &ldquo;&rdquo;&rdquo;
+    用特殊图形制作词云的通用代码
+    :param input_file: 输入文本的路径或名字
+    :param output_file: 输出图片的路径或名字
+    :param png_file:  设置词云的图片形状的文件路径或名字
+    :param kwargs: WordCloud的参数(width、height、background_color、font_path、max_words)
+    :return:
+    &ldquo;&rdquo;&rdquo;
+    width = kwargs.get(&ldquo;width&rdquo;)
+    height = kwargs.get(&ldquo;height&rdquo;)
+    background_color = kwargs.get(&ldquo;background_color&rdquo;)
+    font_path = kwargs.get(&ldquo;font_path&rdquo;)
+    max_words = kwargs.get(&ldquo;max_words&rdquo;)
+    mask = imageio.imread(png_file)</p>
+
+<pre><code>f = open(input_file, &quot;r&quot;, encoding=&quot;utf-8&quot;)
+data = f.read()
+f.close()
+
+ls = jieba.lcut(data)                   # 分词,生成一个list
+txt = &quot; &quot;.join(ls)                      # 将列表中的单词连接成一个字符串
+
+w = wordcloud.WordCloud(width=width,
+                        height=height,
+                        background_color=background_color,
+                        font_path=font_path,
+                        max_words=max_words,
+                        mask=mask)
+w.generate(txt)
+w.to_file(output_file)
+</code></pre>
+
+<p>&rdquo;&rsquo;</p>
 
                         </div>
 
@@ -204,7 +192,7 @@ class DoubanSpider(CrawlSpider):
 <div class="post-archive">
     <ul class="post-copyright">
         <li><strong>原文作者：</strong><a rel="author" href="https://wshoo.github.io/">wshoo</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://wshoo.github.io/post/linkextractor/">https://wshoo.github.io/post/linkextractor/</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://wshoo.github.io/post/jieba_wordcloud/">https://wshoo.github.io/post/jieba_wordcloud/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -218,13 +206,15 @@ class DoubanSpider(CrawlSpider):
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/mysql/">MySQL 常用语句</a></li>
+        <li><a href="/post/xlwings/">xlwings 模块</a></li>
         
-        <li><a href="/post/markdown/">markdown 语法</a></li>
+        <li><a href="/post/python%E6%A8%A1%E5%9D%97-multiprocessing/">Multiprocessing 模块</a></li>
         
-        <li><a href="/post/git/">git 基本使用</a></li>
+        <li><a href="/post/python%E7%B1%BB%E4%B8%ADsuper%E5%92%8C__init__%E7%9A%84%E5%8C%BA%E5%88%AB/">super()和__init__()</a></li>
         
-        <li><a href="/archives/">归档</a></li>
+        <li><a href="/post/python-db/">python 数据库实例</a></li>
+        
+        <li><a href="/post/scrapy_proxy/">scrapy--proxy代理</a></li>
         
     </ul>
 </div>
@@ -234,7 +224,7 @@ class DoubanSpider(CrawlSpider):
                             
                             <ul class="clearfix">
                                 
-                                <li><a href="https://wshoo.github.io/tags/scrapy">scrapy</a></li>
+                                <li><a href="https://wshoo.github.io/tags/python">python</a></li>
                                 
                             </ul>
                             

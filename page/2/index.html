@@ -69,6 +69,32 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句" >MySQL 常用语句</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2018年10月28日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://wshoo.github.io/categories/database">database</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                MySQL：众多关系型数据库中的一种 修改mysql默认密码 使用 sudo mysql -u root -p 登录，密码为空
+use mysql; update user set authentication_string=PASSWORD(&quot;这里输入你要改的密码&quot;) where User='root'; #更改密码 update user set plugin=&quot;mysql_native_password&quot;; #如果没这一行可能也会报一个错误，因此需要运行这一行 flush privileges; #更新所有操作权限 quit;  数据库操作：  进入mysql 命令行: mysql -uroot -p 查看所有数据库: show databases; 创建数据库： create database niu charset utf8; 删除数据库： drop database niu; 选择数据库： use databases; 查看所有表： show tables; 查看创建数据库的语句：show create database databasename; 查看创建表的语句：show create table tablename; 查看表结构：desc tablename;  表操作： 约束  自增长 auto_increment 非空 not null 默认值 default &lsquo;xx&rsquo; 唯一 unique 指定字符集 charset 主键 primary key 外键 增加两个表之间的联系  增：  学生表……
+                            </div>
+                            <p class="readmore"><a href="https://wshoo.github.io/post/mysql/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法" >markdown 语法</a>
                                 </h1>
                             </header>
@@ -215,6 +241,10 @@ git init # 目录下多了.git文件夹……
 <ul class="widget-list">
     
     <li>
+        <a href="https://wshoo.github.io/post/jieba_wordcloud/" title="jieba分词与wordcloud词云制作">jieba分词与wordcloud词云制作</a>
+    </li>
+    
+    <li>
         <a href="https://wshoo.github.io/post/xlwings/" title="xlwings 模块">xlwings 模块</a>
     </li>
     
@@ -250,10 +280,6 @@ git init # 目录下多了.git文件夹……
         <a href="https://wshoo.github.io/post/mysql/" title="MySQL 常用语句">MySQL 常用语句</a>
     </li>
     
-    <li>
-        <a href="https://wshoo.github.io/post/markdown/" title="markdown 语法">markdown 语法</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -268,7 +294,7 @@ git init # 目录下多了.git文件夹……
     </li>
     
     <li>
-        <a href="https://wshoo.github.io/categories/python/">python(5)</a>
+        <a href="https://wshoo.github.io/categories/python/">python(6)</a>
     </li>
     
     <li>
