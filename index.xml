@@ -27,8 +27,8 @@
       
       <guid>https://wshoo.github.io/post/jieba_wordcloud/</guid>
       <description>jieba分词 &amp;rdquo;&amp;ldquo;&amp;rdquo; import re import jieba import collections
-class JiebaWords(object): def init(self, name): &amp;ldquo;&amp;rsquo; :param name: 文本名字或路径 &amp;ldquo;&amp;rsquo; self.text_name = name
-def get_text(self): &#39;&#39;&#39; 获取文本并进行相关处理 :return: 返回文本内容 &#39;&#39;&#39; txt = open(self.text_name, &amp;quot;r&amp;quot;, encoding=&amp;quot;utf-8&amp;quot;).read() return txt def split_txt(self): &#39;&#39;&#39; 对文本进行分词 :return: 返回分词后的列表 &#39;&#39;&#39; mytxt = self.get_text() words = jieba.lcut(mytxt) return words def count(self): &#39;&#39;&#39; 统计单词出现的次数并输出结果 &#39;&#39;&#39; words = self.split_txt() remove_words = [&amp;quot;那么&amp;quot;, &amp;quot;这么&amp;quot;] words = [w for w in words if len(w)&amp;gt;1 and not re.</description>
+class JiebaWords(object): def init(self, name):
+ # :param name: 文本名字或路径 self.text_name = name def get_text(self): # 获取文本并进行相关处理 # :return: 返回文本内容 txt = open(self.text_name, &amp;quot;r&amp;quot;, encoding=&amp;quot;utf-8&amp;quot;).read() return txt def split_txt(self): # 对文本进行分词 # :return: 返回分词后的列表 mytxt = self.get_text() words = jieba.lcut(mytxt) return words def count(self): # 统计单词出现的次数并输出结果 words = self.split_txt() remove_words = [&amp;quot;那么&amp;quot;, &amp;quot;这么&amp;quot;] words = [w for w in words if len(w)&amp;gt;1 and not re.</description>
     </item>
     
     <item>
