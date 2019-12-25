@@ -158,12 +158,12 @@ import imageio</p>
 
 <p>def make_cloud_png(input_file, output_file, png_file, **kwargs):</p>
 
-<pre><code>用特殊图形制作词云的通用代码
-:param input_file: 输入文本的路径或名字
-:param output_file: 输出图片的路径或名字
-:param png_file:  设置词云的图片形状的文件路径或名字
-:param kwargs: WordCloud的参数(width、height、background_color、font_path、max_words)
-:return:
+<pre><code># 用特殊图形制作词云的通用代码
+# :param input_file: 输入文本的路径或名字
+# :param output_file: 输出图片的路径或名字
+# :param png_file:  设置词云的图片形状的文件路径或名字
+# :param kwargs: WordCloud的参数(width、height、background_color、font_path、max_words)
+# :return:
 
 width = kwargs.get(&quot;width&quot;)
 height = kwargs.get(&quot;height&quot;)
@@ -189,7 +189,7 @@ w.generate(txt)
 w.to_file(output_file)
 </code></pre>
 
-<p>&rdquo;&rsquo;</p>
+<p>```</p>
 
                         </div>
 
