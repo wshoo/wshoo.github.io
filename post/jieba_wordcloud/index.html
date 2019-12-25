@@ -143,53 +143,48 @@ if __name__ == '__main__':
     s = JiebaWords(mytxt)
     s.count()
 	
-'''
-
-
-## wordcloud 词云制作 
-
 </code></pre>
 
-<p>python</p>
+<h2 id="wordcloud-词云制作">wordcloud 词云制作</h2>
 
-<p>import jieba
+<pre><code class="language-python"> 
+import jieba
 import wordcloud
-import imageio</p>
+import imageio
 
-<p>def make_cloud_png(input_file, output_file, png_file, **kwargs):</p>
+def make_cloud_png(input_file, output_file, png_file, **kwargs):
+    
+    # 用特殊图形制作词云的通用代码
+    # :param input_file: 输入文本的路径或名字
+    # :param output_file: 输出图片的路径或名字
+    # :param png_file:  设置词云的图片形状的文件路径或名字
+    # :param kwargs: WordCloud的参数(width、height、background_color、font_path、max_words)
+    # :return:
+    
+    width = kwargs.get(&quot;width&quot;)
+    height = kwargs.get(&quot;height&quot;)
+    background_color = kwargs.get(&quot;background_color&quot;)
+    font_path = kwargs.get(&quot;font_path&quot;)
+    max_words = kwargs.get(&quot;max_words&quot;)
+    mask = imageio.imread(png_file)
 
-<pre><code># 用特殊图形制作词云的通用代码
-# :param input_file: 输入文本的路径或名字
-# :param output_file: 输出图片的路径或名字
-# :param png_file:  设置词云的图片形状的文件路径或名字
-# :param kwargs: WordCloud的参数(width、height、background_color、font_path、max_words)
-# :return:
+    f = open(input_file, &quot;r&quot;, encoding=&quot;utf-8&quot;)
+    data = f.read()
+    f.close()
 
-width = kwargs.get(&quot;width&quot;)
-height = kwargs.get(&quot;height&quot;)
-background_color = kwargs.get(&quot;background_color&quot;)
-font_path = kwargs.get(&quot;font_path&quot;)
-max_words = kwargs.get(&quot;max_words&quot;)
-mask = imageio.imread(png_file)
+    ls = jieba.lcut(data)                   # 分词,生成一个list
+    txt = &quot; &quot;.join(ls)                      # 将列表中的单词连接成一个字符串
 
-f = open(input_file, &quot;r&quot;, encoding=&quot;utf-8&quot;)
-data = f.read()
-f.close()
-
-ls = jieba.lcut(data)                   # 分词,生成一个list
-txt = &quot; &quot;.join(ls)                      # 将列表中的单词连接成一个字符串
-
-w = wordcloud.WordCloud(width=width,
-                        height=height,
-                        background_color=background_color,
-                        font_path=font_path,
-                        max_words=max_words,
-                        mask=mask)
-w.generate(txt)
-w.to_file(output_file)
+    w = wordcloud.WordCloud(width=width,
+							height=height,
+							background_color=background_color,
+							font_path=font_path,
+                            max_words=max_words,
+							mask=mask)
+    w.generate(txt)
+    w.to_file(output_file)
+	
 </code></pre>
-
-<p>```</p>
 
                         </div>
 
