@@ -94,60 +94,65 @@
 
 <h2 id="jieba分词">jieba分词</h2>
 
-<p>&rdquo;&ldquo;&rdquo;
+<pre><code class="language-python">
 import re
 import jieba
-import collections</p>
+import collections
 
-<p>class JiebaWords(object):
-    def <strong>init</strong>(self, name):</p>
+class JiebaWords(object):
+    def __init__(self, name):
+        
+        # :param name: 文本名字或路径
+        
+        self.text_name = name
 
-<pre><code>    # :param name: 文本名字或路径
+    def get_text(self):
+        
+        # 获取文本并进行相关处理
+        # :return: 返回文本内容
+        
+        txt = open(self.text_name, &quot;r&quot;, encoding=&quot;utf-8&quot;).read()
+        return txt
 
-    self.text_name = name
+    def split_txt(self):
+        
+        # 对文本进行分词
+        # :return: 返回分词后的列表
+        
+        mytxt = self.get_text()
+        words = jieba.lcut(mytxt)
+        return words
 
-def get_text(self):
+    def count(self):
+        
+        # 统计单词出现的次数并输出结果
+        
+        words = self.split_txt()
+        remove_words = [&quot;那么&quot;, &quot;这么&quot;]
+		words = [w for w in words if len(w)&gt;1 and not re.match('^[a-z|A-Z|0-9|.]*$',w) and not in remove_words]
+		word_counts = collections.Counter(words)
+		word_counts_top10 = word_counts.most_common(10)
+		print(word_counts_top10) # 打印出现最多的10的词
+		# &quot; &quot;.join(words) # 换成字符串格式，用于制作词云
+        
 
-    # 获取文本并进行相关处理
-    # :return: 返回文本内容
 
-    txt = open(self.text_name, &quot;r&quot;, encoding=&quot;utf-8&quot;).read()
-    return txt
 
-def split_txt(self):
+if __name__ == '__main__':
 
-    # 对文本进行分词
-    # :return: 返回分词后的列表
+    s = JiebaWords(mytxt)
+    s.count()
+	
+'''
 
-    mytxt = self.get_text()
-    words = jieba.lcut(mytxt)
-    return words
 
-def count(self):
+## wordcloud 词云制作 
 
-    # 统计单词出现的次数并输出结果
-
-    words = self.split_txt()
-    remove_words = [&quot;那么&quot;, &quot;这么&quot;]
-    words = [w for w in words if len(w)&gt;1 and not re.match('^[a-z|A-Z|0-9|.]*$',w) and not in remove_words]
-    word_counts = collections.Counter(words)
-    word_counts_top10 = word_counts.most_common(10)
-    print(word_counts_top10) # 打印出现最多的10的词
-    # &quot; &quot;.join(words) # 换成字符串格式，用于制作词云
 </code></pre>
 
-<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&lsquo;:</p>
+<p>python</p>
 
-<pre><code>s = JiebaWords(mytxt)
-s.count()
-</code></pre>
-
-<p>&rdquo;&ldquo;&rdquo;</p>
-
-<h2 id="wordcloud-词云制作">wordcloud 词云制作</h2>
-
-<p>&rdquo;&ldquo;&rdquo;
-import jieba
+<p>import jieba
 import wordcloud
 import imageio</p>
 
@@ -184,7 +189,7 @@ w.generate(txt)
 w.to_file(output_file)
 </code></pre>
 
-<p>&rdquo;&ldquo;&rdquo;</p>
+<p>&rdquo;&rsquo;</p>
 
                         </div>
 
